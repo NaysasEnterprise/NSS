@@ -104,7 +104,9 @@
 			"sourceIndexes" : 
 			[
 				1,
-				2
+				2,
+				3,
+				4
 			]
 		}
 	],
@@ -123,7 +125,17 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "NSS/common/database.h",
+			"path" : "NSS/common/database_pvz.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "NSS/common/database_clients.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "NSS/common/clients.h",
 			"sourceGroupIndex" : 1
 		}
 	],
