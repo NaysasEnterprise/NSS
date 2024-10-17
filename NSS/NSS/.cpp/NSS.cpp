@@ -6,26 +6,13 @@
 #include <vector>
 #include "../common/clients.h"
 #include "../common/order.h"
-
+#include "../common/PVZ.h"
+using namespace FunctionsPVZControl;
 
 #pragma comment(lib, "Ws2_32.lib") // Подключение библиотеки W  inSock
 
 #define PORT 8080 // Указываем порт
-void adminMenu() {
-    std::cout << "\n--- Администратор (сотрудник ПВЗ) ---\n";
-    std::cout << "1. Посмотреть все заказы\n";
-    std::cout << "2. Найти заказ по ID\n";
-    std::cout << "3. Добавить новый заказ\n";
-    std::cout << "4. Вернуться в главное меню\n";
-}
 
-void clientMenu() {
-    std::cout << "\n--- Клиент ---\n";
-    std::cout << "1. Посмотреть мои заказы\n";
-    std::cout << "2. Оформить новый заказ\n";
-    std::cout << "3. Найти заказ по ID\n";
-    std::cout << "4. Вернуться в главное меню\n";
-}
 int main() {
     setlocale(LC_ALL, "Russian");  // Установка локали для поддержки русского языка
 
