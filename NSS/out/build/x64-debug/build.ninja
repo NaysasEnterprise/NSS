@@ -84,6 +84,41 @@ build NSS\CMakeFiles\NSS.dir\.cpp\NSS.cpp.obj: CXX_COMPILER__NSS_unscanned_Debug
   TARGET_COMPILE_PDB = NSS\CMakeFiles\NSS.dir\
   TARGET_PDB = NSS\NSS.pdb
 
+build NSS\CMakeFiles\NSS.dir\socket\socket.cpp.obj: CXX_COMPILER__NSS_unscanned_Debug C$:\Users\Artem\Desktop\Tehnology$ Programming\NSS\NSS\NSS\NSS\socket\socket.cpp || cmake_object_order_depends_target_NSS
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  OBJECT_DIR = NSS\CMakeFiles\NSS.dir
+  OBJECT_FILE_DIR = NSS\CMakeFiles\NSS.dir\socket
+  TARGET_COMPILE_PDB = NSS\CMakeFiles\NSS.dir\
+  TARGET_PDB = NSS\NSS.pdb
+
+build NSS\CMakeFiles\NSS.dir\namespace\functions.cpp.obj: CXX_COMPILER__NSS_unscanned_Debug C$:\Users\Artem\Desktop\Tehnology$ Programming\NSS\NSS\NSS\NSS\namespace\functions.cpp || cmake_object_order_depends_target_NSS
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  OBJECT_DIR = NSS\CMakeFiles\NSS.dir
+  OBJECT_FILE_DIR = NSS\CMakeFiles\NSS.dir\namespace
+  TARGET_COMPILE_PDB = NSS\CMakeFiles\NSS.dir\
+  TARGET_PDB = NSS\NSS.pdb
+
+build NSS\CMakeFiles\NSS.dir\common\clients.cpp.obj: CXX_COMPILER__NSS_unscanned_Debug C$:\Users\Artem\Desktop\Tehnology$ Programming\NSS\NSS\NSS\NSS\common\clients.cpp || cmake_object_order_depends_target_NSS
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  OBJECT_DIR = NSS\CMakeFiles\NSS.dir
+  OBJECT_FILE_DIR = NSS\CMakeFiles\NSS.dir\common
+  TARGET_COMPILE_PDB = NSS\CMakeFiles\NSS.dir\
+  TARGET_PDB = NSS\NSS.pdb
+
+build NSS\CMakeFiles\NSS.dir\common\product.cpp.obj: CXX_COMPILER__NSS_unscanned_Debug C$:\Users\Artem\Desktop\Tehnology$ Programming\NSS\NSS\NSS\NSS\common\product.cpp || cmake_object_order_depends_target_NSS
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  OBJECT_DIR = NSS\CMakeFiles\NSS.dir
+  OBJECT_FILE_DIR = NSS\CMakeFiles\NSS.dir\common
+  TARGET_COMPILE_PDB = NSS\CMakeFiles\NSS.dir\
+  TARGET_PDB = NSS\NSS.pdb
+
+build NSS\CMakeFiles\NSS.dir\common\PVZ.cpp.obj: CXX_COMPILER__NSS_unscanned_Debug C$:\Users\Artem\Desktop\Tehnology$ Programming\NSS\NSS\NSS\NSS\common\PVZ.cpp || cmake_object_order_depends_target_NSS
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  OBJECT_DIR = NSS\CMakeFiles\NSS.dir
+  OBJECT_FILE_DIR = NSS\CMakeFiles\NSS.dir\common
+  TARGET_COMPILE_PDB = NSS\CMakeFiles\NSS.dir\
+  TARGET_PDB = NSS\NSS.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target NSS
@@ -92,7 +127,7 @@ build NSS\CMakeFiles\NSS.dir\.cpp\NSS.cpp.obj: CXX_COMPILER__NSS_unscanned_Debug
 #############################################
 # Link the executable NSS\NSS.exe
 
-build NSS\NSS.exe: CXX_EXECUTABLE_LINKER__NSS_Debug NSS\CMakeFiles\NSS.dir\.cpp\NSS.cpp.obj
+build NSS\NSS.exe: CXX_EXECUTABLE_LINKER__NSS_Debug NSS\CMakeFiles\NSS.dir\.cpp\NSS.cpp.obj NSS\CMakeFiles\NSS.dir\socket\socket.cpp.obj NSS\CMakeFiles\NSS.dir\namespace\functions.cpp.obj NSS\CMakeFiles\NSS.dir\common\clients.cpp.obj NSS\CMakeFiles\NSS.dir\common\product.cpp.obj NSS\CMakeFiles\NSS.dir\common\PVZ.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib

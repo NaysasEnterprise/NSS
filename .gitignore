@@ -1,0 +1,58 @@
+# Игнорировать папки сгенерированные Visual Studio
+.vs/
+*.VC.db
+*.VC.VC.opendb
+*.user
+*.ipch
+*.suo
+*.ilk
+*.pdb
+*.pch
+*.obj
+*.log
+*.tlog
+*.lastbuildstate
+*.idb
+*.dir
+*.ipdb
+*.aps
+*.ncb
+*.sdf
+*.opendb
+
+# Игнорировать временные и бинарные файлы
+out/
+build/
+Debug/
+Release/
+*.exe
+*.dll
+*.lib
+*.exp
+*.o
+*.a
+*.so
+*.dylib
+
+# Игнорировать файлы конфигурации
+CMakeFiles/
+CMakeCache.txt
+CMakeLists.txt.user
+*.cmake
+
+# Игнорировать файлы системы
+Thumbs.db
+.DS_Store
+*.swp
+*.bak
+*.tmp
+
+# Игнорировать SQL базы данных
+*.db
+*.sql
+
+# Игнорировать большие файлы, связанные с автогенерацией кода
+*.ipch
+
+# Игнорировать другие файлы, которые могут быть созданы временно или локально
+*.log
