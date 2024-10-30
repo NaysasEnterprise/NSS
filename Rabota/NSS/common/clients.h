@@ -12,22 +12,18 @@ private:
     std::vector<Order> orders;
     std::vector<Order> receivedOrders;
 public:
-    // Конструктор класса Client
-    Client(int clientId, const std::string& fName, const std::string& lName, const std::string& mName)
-        : id(clientId), firstName(fName), lastName(lName), middleName(mName) {}
-
     // Геттеры для доступа к полям
-    int getId() const { return id; }
-    std::string getFirstName() const { return firstName; }
-    std::string getLastName() const { return lastName; }
-    std::string getMiddleName() const { return middleName; }
-    std::vector<Order> getOrders() const { return orders; }
+    int getId() const;
+    std::string getFirstName() const;
+    std::string getLastName() const;
+    std::string getMiddleName() const;
+    std::vector<Order> getOrders() const;
 
     // Сеттеры для изменения полей
-    void setFirstName(const std::string& fName) { firstName = fName; }
-    void setLastName(const std::string& lName) { lastName = lName; }
-    void setMiddleName(const std::string& mName) { middleName = mName; }
-    void setId(int clientId) { id = clientId; }
+    void setFirstName(const std::string& fName);
+    void setLastName(const std::string& lName);
+    void setMiddleName(const std::string& mName);
+    void setId(int clientId);
 
     // Заголовок функции для оформления заказа по названию товара
     void placeOrder(const std::string& productName);
