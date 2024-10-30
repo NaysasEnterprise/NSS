@@ -25,7 +25,6 @@ out/
 build/
 Debug/
 Release/
-*.exe
 *.dll
 *.lib
 *.exp
