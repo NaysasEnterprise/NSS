@@ -13,7 +13,7 @@ using namespace FunctionsPVZControl;
 
 #define PORT 8080 // Указываем порт
 
-int main() {
+/*int main() {
     setlocale(LC_ALL, "Russian");  // Установка локали для поддержки русского языка
 
     int choice = 0;
@@ -99,26 +99,26 @@ int main() {
     }
 
     return 0;
-}
-/*int main() {
-    setlocale(LC_ALL, "Russian");
+}*/
+#define BUFFER_SIZE 1024
+
+int main() {
     WSADATA wsaData;
-
-    // Инициализация WinSock
-    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
-        std::cerr << "Ошибка инициализации WinSock" << std::endl;
-        return 1;
-    }
-
-    int server_fd;
-    SOCKET new_socket;
+    SOCKET server_fd, new_socket;
     struct sockaddr_in address;
     int opt = 1;
     int addrlen = sizeof(address);
+    char buffer[BUFFER_SIZE] = { 0 };
+    const char* response = "Заказ принят";
 
-    // Создание сокета
-    server_fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (server_fd == INVALID_SOCKET) {
+    // Инициализация WinSock
+    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
+        std::cerr << "Ошибка инициализации WinSock: " << WSAGetLastError() << std::endl;
+        return 1;
+    }
+
+    // Создание серверного сокета
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET) {
         std::cerr << "Ошибка создания сокета: " << WSAGetLastError() << std::endl;
         WSACleanup();
         return 1;
@@ -134,8 +134,8 @@ int main() {
 
     // Настройка адреса сервера
     address.sin_family = AF_INET;
-    address.sin_addr.s_addr = INADDR_ANY;  // Привязка ко всем интерфейсам
-    address.sin_port = htons(PORT);        // Преобразование порта в сетевой порядок байт
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons(PORT);
 
     // Привязка сокета к адресу
     if (bind(server_fd, (struct sockaddr*)&address, sizeof(address)) == SOCKET_ERROR) {
@@ -166,7 +166,17 @@ int main() {
 
     std::cout << "Клиент подключен!" << std::endl;
 
-    // Закрытие сокетов после завершения работы
+    // Получение запроса от клиента
+    int bytes_read = recv(new_socket, buffer, BUFFER_SIZE, 0);
+    if (bytes_read > 0) {
+        std::cout << "Запрос от клиента: " << buffer << std::endl;
+
+        // Отправка ответа клиенту
+        send(new_socket, response, strlen(response), 0);
+        std::cout << "Ответ отправлен: " << response << std::endl;
+    }
+
+    // Закрытие сокетов
     closesocket(new_socket);
     closesocket(server_fd);
 
@@ -174,4 +184,4 @@ int main() {
     WSACleanup();
 
     return 0;
-}*/
+}
