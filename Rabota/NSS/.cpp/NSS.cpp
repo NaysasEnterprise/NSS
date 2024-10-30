@@ -4,7 +4,6 @@
 #include <ws2tcpip.h> // Для дополнительных функций сокетов (например, getaddrinfo)
 #include <string>
 #include <vector>
-#include "../common/clients.h"
 #include "../common/order.h"
 #include "../common/PVZ.h"
 using namespace FunctionsPVZControl;
@@ -103,6 +102,7 @@ using namespace FunctionsPVZControl;
 #define BUFFER_SIZE 1024
 
 int main() {
+    setlocale(LC_ALL, "Russian");
     WSADATA wsaData;
     SOCKET server_fd, new_socket;
     struct sockaddr_in address;

@@ -1,5 +1,0 @@
-C:/Users/Artem/Desktop/Tehnology Programming/NSS/NSS/NSS/out/build/x64-debug/CMakeFiles/edit_cache.dir
-C:/Users/Artem/Desktop/Tehnology Programming/NSS/NSS/NSS/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/Artem/Desktop/Tehnology Programming/NSS/NSS/NSS/out/build/x64-debug/NSS/CMakeFiles/NSS.dir
-C:/Users/Artem/Desktop/Tehnology Programming/NSS/NSS/NSS/out/build/x64-debug/NSS/CMakeFiles/edit_cache.dir
-C:/Users/Artem/Desktop/Tehnology Programming/NSS/NSS/NSS/out/build/x64-debug/NSS/CMakeFiles/rebuild_cache.dir

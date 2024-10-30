@@ -22,6 +22,7 @@ void Client::setId(int clientId) { id = clientId; }
 #define BUFFER_SIZE 1024
 
 int main() {
+
     WSADATA wsaData;
     SOCKET sock = INVALID_SOCKET;
     struct sockaddr_in server_address;

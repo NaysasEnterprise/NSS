@@ -1,4 +1,5 @@
 ﻿#include <string>
+#pragma once
 
 // Структура описания заказа
 class Order {

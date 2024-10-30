@@ -3,7 +3,20 @@
 #
 
 # Добавьте источник в исполняемый файл этого проекта.
-add_executable (NSS ".cpp/NSS.cpp" "common/order.h"   "common/clients.h" "socket/socket.cpp" "namespace/functions.cpp" "common/PVZ.h" "common/clients.cpp" "common/product.cpp" "common/PVZ.cpp")
+# NSS executable
+add_executable (NSS 
+    "NSS/.cpp/NSS.cpp"
+    "NSS/socket/socket.cpp"
+    "NSS/namespace/functions.cpp"
+    "NSS/common/product.cpp"
+    "NSS/common/PVZ.cpp"
+)
+
+# Client executable (предположим, что main() определена в clients.cpp)
+add_executable (Client 
+    "NSS/common/clients.cpp"
+)
+
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET NSS PROPERTY CXX_STANDARD 20)

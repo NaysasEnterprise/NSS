@@ -12,4 +12,4 @@ endif()
 project ("NSS")
 
 # Включите подпроекты.
-add_subdirectory ("NSS")
+add_subdirectory ("Rabota")
