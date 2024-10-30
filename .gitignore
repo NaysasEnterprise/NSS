@@ -1,58 +1,34 @@
-# Игнорировать папки сгенерированные Visual Studio
+# Visual Studio
 .vs/
-*.VC.db
-*.VC.VC.opendb
+*.suo
 *.user
 *.ipch
-*.suo
-*.ilk
-*.pdb
-*.pch
-*.obj
-*.log
-*.tlog
-*.lastbuildstate
-*.idb
-*.dir
-*.ipdb
-*.aps
 *.ncb
 *.sdf
-*.opendb
+*.log
 
-# Игнорировать временные и бинарные файлы
+# CMake
+CMakeFiles/
+CMakeCache.txt
+*.cmake
+
+# Build directories
 out/
 build/
-Debug/
-Release/
-*.exe
+
+# Compiled binary files
 *.dll
 *.lib
 *.exp
-*.o
-*.a
+*.exe
 *.so
 *.dylib
+*.pdb
+*.obj
 
-# Игнорировать файлы конфигурации
-CMakeFiles/
-CMakeCache.txt
-CMakeLists.txt.user
-*.cmake
-
-# Игнорировать файлы системы
-Thumbs.db
+# System and temporary files
 .DS_Store
+Thumbs.db
 *.swp
 *.bak
 *.tmp
-
-# Игнорировать SQL базы данных
-*.db
-*.sql
-
-# Игнорировать большие файлы, связанные с автогенерацией кода
-*.ipch
-
-# Игнорировать другие файлы, которые могут быть созданы временно или локально
-*.log

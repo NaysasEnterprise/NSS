@@ -5,12 +5,12 @@
 
 class Client {
 private:
-    int id;                         // ID клиента
-    std::string firstName;           // Имя
-    std::string lastName;            // Фамилия
-    std::string middleName;          // Отчество
-    std::vector<Order> orders;       // Список заказов клиента
-    std::vector<Order> receivedOrders; // Список забранных заказов
+    int id;
+    std::string firstName;
+    std::string lastName;
+    std::string middleName;
+    std::vector<Order> orders;
+    std::vector<Order> receivedOrders;
 public:
     // Конструктор класса Client
     Client(int clientId, const std::string& fName, const std::string& lName, const std::string& mName)
