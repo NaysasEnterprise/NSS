@@ -1,27 +1,29 @@
-// product.cpp
+п»ї// product.cpp
 #include "product.h"
 #include <iostream>
 
-// Конструктор
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 Product::Product(int productId, const std::string& productName, double productPrice, bool availability)
-    : id(productId), name(productName), price(productPrice), isAvailable(availability) {}
+    : id(productId), name(productName), price(productPrice), isAvailable(availability) {} //TODO: Р РµР°Р»РёР·РѕРІР°С‚СЊ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 
-// Геттеры
+// Р“РµС‚С‚РµСЂС‹
 int Product::getId() const { return id; }
 std::string Product::getName() const { return name; }
 double Product::getPrice() const { return price; }
 bool Product::getAvailability() const { return isAvailable; }
 
-// Сеттеры
+// РЎРµС‚С‚РµСЂС‹
 void Product::setId(int productId) { id = productId; }
 void Product::setName(const std::string& productName) { name = productName; }
 void Product::setPrice(double productPrice) { price = productPrice; }
 void Product::setAvailability(bool availability) { isAvailable = availability; }
 
-// Функция для вывода информации о товаре
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РІС‹РІРѕРґР° РёРЅС„РѕСЂРјР°С†РёРё Рѕ С‚РѕРІР°СЂРµ
 void Product::printProductInfo() const {
-    std::cout << "ID товара: " << id << std::endl;
-    std::cout << "Название: " << name << std::endl;
-    std::cout << "Цена: " << price << std::endl;
-    std::cout << "Наличие: " << (isAvailable ? "Да" : "Нет") << std::endl;
-} //тут еще надо продумать как у нас будет работать с клиентом(будут скорее всего заводиться "аккаунты" клиентов
+    std::cout << "ID С‚РѕРІР°СЂР°: " << id << std::endl;
+    std::cout << "РќР°Р·РІР°РЅРёРµ: " << name << std::endl;
+    std::cout << "Р¦РµРЅР°: " << price << std::endl;
+    std::cout << "РќР°Р»РёС‡РёРµ: " << (isAvailable ? "Р”Р°" : "РќРµС‚") << std::endl;
+} //С‚СѓС‚ РµС‰Рµ РЅР°РґРѕ РїСЂРѕРґСѓРјР°С‚СЊ РєР°Рє Сѓ РЅР°СЃ Р±СѓРґРµС‚ СЂР°Р±РѕС‚Р°С‚СЊ СЃ РєР»РёРµРЅС‚РѕРј(Р±СѓРґСѓС‚ СЃРєРѕСЂРµРµ РІСЃРµРіРѕ Р·Р°РІРѕРґРёС‚СЊСЃСЏ "Р°РєРєР°СѓРЅС‚С‹" РєР»РёРµРЅС‚РѕРІ
+//TODO: РџСЂРѕРґСѓРјР°С‚СЊ СЂР°Р±РѕС‚Сѓ СЃ РєР»РёРµРЅС‚РѕРј
+//TODO: РџРµСЂРµРїРёСЃР°С‚СЊ РЅР° РїРµСЂРµРіСЂСѓР·РєСѓ РІС‹РІРѕРґР°
