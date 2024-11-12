@@ -1,4 +1,7 @@
-﻿
+﻿#include <string>
+#include <vector>
+#include "order.h"
+#include <iostream>
 #pragma once
 
 class PVZ {
@@ -8,4 +11,7 @@ class PVZ {
 namespace FunctionsPVZControl {
 	void adminMenu();
 	void clientMenu();
+	bool clientExists(const std::string& firstName, const std::string& lastName);
+	void addClient(const std::string& firstName, const std::string& lastName);
+	void clientLoginOrRegister();
 }

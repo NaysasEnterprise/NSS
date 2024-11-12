@@ -12,7 +12,7 @@ using namespace FunctionsPVZControl;
 
 #define PORT 8080 // Указываем порт
 
-/*int main() {
+int main() {
     setlocale(LC_ALL, "Russian");  // Установка локали для поддержки русского языка
 
     int choice = 0;
@@ -58,7 +58,8 @@ using namespace FunctionsPVZControl;
         }
 
         case 2: {
-            // Меню для клиента
+            clientLoginOrRegister(); // Вход или регистрация клиента
+
             int clientChoice;
             while (true) {
                 clientMenu();
@@ -78,7 +79,7 @@ using namespace FunctionsPVZControl;
                     break;
                 case 4:
                     std::cout << "Возвращение в главное меню...\n";
-                    goto mainMenu;  // Выход из цикла клиента и возврат в главное меню
+                    goto mainMenu;  // Возврат в главное меню
                 default:
                     std::cout << "Некорректный выбор. Попробуйте снова.\n";
                 }
@@ -98,10 +99,10 @@ using namespace FunctionsPVZControl;
     }
 
     return 0;
-}*/
+}
 #define BUFFER_SIZE 1024
 
-int main() {
+/*int main() {
     setlocale(LC_ALL, "Russian");
     WSADATA wsaData;
     SOCKET server_fd, new_socket;
@@ -184,4 +185,4 @@ int main() {
     WSACleanup();
 
     return 0;
-}
+}*/
