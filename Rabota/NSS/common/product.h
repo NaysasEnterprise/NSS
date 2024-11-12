@@ -1,28 +1,29 @@
-#include <string>
+п»ї#include <string>
+#pragma once
 
 class Product {
 private:
-    int id;                 // ID товара
-    std::string name;        // Название товара
-    double price;            // Цена товара
-    bool isAvailable;        // Статус наличия
+    int id;                 // ID С‚РѕРІР°СЂР°
+    std::string name;        // РќР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР°
+    double price;            // Р¦РµРЅР° С‚РѕРІР°СЂР°
+    bool isAvailable;        // РЎС‚Р°С‚СѓСЃ РЅР°Р»РёС‡РёСЏ
 
 public:
-    // Конструктор
+    // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
     Product(int productId, const std::string& productName, double productPrice, bool availability);
 
-    // Геттеры
+    // Р“РµС‚С‚РµСЂС‹
     int getId() const;
     std::string getName() const;
     double getPrice() const;
     bool getAvailability() const;
 
-    // Сеттеры
+    // РЎРµС‚С‚РµСЂС‹
     void setId(int productId);
     void setName(const std::string& productName);
     void setPrice(double productPrice);
     void setAvailability(bool availability);
 
-    // Функция для вывода информации о товаре
-    void printProductInfo() const; //это скорее всего нужно будет поменять на перегрузку оператора вывода
+    // Р¤СѓРЅРєС†РёСЏ РґР»СЏ РІС‹РІРѕРґР° РёРЅС„РѕСЂРјР°С†РёРё Рѕ С‚РѕРІР°СЂРµ
+    void printProductInfo() const; //СЌС‚Рѕ СЃРєРѕСЂРµРµ РІСЃРµРіРѕ РЅСѓР¶РЅРѕ Р±СѓРґРµС‚ РїРѕРјРµРЅСЏС‚СЊ РЅР° РїРµСЂРµРіСЂСѓР·РєСѓ РѕРїРµСЂР°С‚РѕСЂР° РІС‹РІРѕРґР°
 };

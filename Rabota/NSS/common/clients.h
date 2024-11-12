@@ -1,7 +1,8 @@
-#include <string>
+п»ї#include <string>
 #include <vector>
 #include "order.h"
 #include <iostream>
+#pragma once
 
 class Client {
 private:
@@ -12,32 +13,32 @@ private:
     std::vector<Order> orders;
     std::vector<Order> receivedOrders;
 public:
-    // Геттеры для доступа к полям
+    // Р“РµС‚С‚РµСЂС‹ РґР»СЏ РґРѕСЃС‚СѓРїР° Рє РїРѕР»СЏРј
     int getId() const;
     std::string getFirstName() const;
     std::string getLastName() const;
     std::string getMiddleName() const;
     std::vector<Order> getOrders() const;
 
-    // Сеттеры для изменения полей
+    // РЎРµС‚С‚РµСЂС‹ РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ РїРѕР»РµР№
     void setFirstName(const std::string& fName);
     void setLastName(const std::string& lName);
     void setMiddleName(const std::string& mName);
     void setId(int clientId);
 
-    // Заголовок функции для оформления заказа по названию товара
+    // Р—Р°РіРѕР»РѕРІРѕРє С„СѓРЅРєС†РёРё РґР»СЏ РѕС„РѕСЂРјР»РµРЅРёСЏ Р·Р°РєР°Р·Р° РїРѕ РЅР°Р·РІР°РЅРёСЋ С‚РѕРІР°СЂР°
     void placeOrder(const std::string& productName);
 
-    // Заголовок функции для поиска заказа по параметрам (ID, ФИО, статус заказа)
+    // Р—Р°РіРѕР»РѕРІРѕРє С„СѓРЅРєС†РёРё РґР»СЏ РїРѕРёСЃРєР° Р·Р°РєР°Р·Р° РїРѕ РїР°СЂР°РјРµС‚СЂР°Рј (ID, Р¤РРћ, СЃС‚Р°С‚СѓСЃ Р·Р°РєР°Р·Р°)
     void searchOrderByID(int id);
-    void searchOrderByFullName(const std::string& fullName); //думаю объединим позже в одну функцию
+    void searchOrderByFullName(const std::string& fullName); //РґСѓРјР°СЋ РѕР±СЉРµРґРёРЅРёРј РїРѕР·Р¶Рµ РІ РѕРґРЅСѓ С„СѓРЅРєС†РёСЋ
     void searchOrderByStatus(const std::string& status);
 
-    // Заголовок функции для забора заказа (поиск товара по параметрам)
+    // Р—Р°РіРѕР»РѕРІРѕРє С„СѓРЅРєС†РёРё РґР»СЏ Р·Р°Р±РѕСЂР° Р·Р°РєР°Р·Р° (РїРѕРёСЃРє С‚РѕРІР°СЂР° РїРѕ РїР°СЂР°РјРµС‚СЂР°Рј)
     void pickOrderByParameters(const std::string& productName, const std::string& clientName);
 
     void removeOrder(int orderId);
-    // Функция для вывода информации о клиенте
+    // Р¤СѓРЅРєС†РёСЏ РґР»СЏ РІС‹РІРѕРґР° РёРЅС„РѕСЂРјР°С†РёРё Рѕ РєР»РёРµРЅС‚Рµ
     
     Order returnOrder(std::string reason);
 
