@@ -32,5 +32,5 @@ public:
     int getId() const;                    // Получить ID заказа
     std::string getProductName() const;    // Получить название продукта
     std::string getClientName() const;     // Получить имя клиента
-    std::string getStatus() const;         // Получить статус заказа
+    std::string getStatus() const;         // Получить статус 
 };

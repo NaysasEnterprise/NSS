@@ -1,4 +1,4 @@
-﻿#include "clients.h"
+﻿#include "../include/clients.h"
 
 // Добавление заказа
 void Client::placeOrder(const std::string& productName) {
@@ -12,7 +12,7 @@ void Client::placeOrder(const std::string& productName) {
 void Client::searchOrderByID(int id) {
     for (const auto& order : orders) {
         if (order.getId() == id) { // Предполагается, что у Order есть getId()
-            std::cout << "Заказ найден: " << order.getDetails() << std::endl; // Предполагаемый метод getDetails()
+            std::cout << "Заказ найден: " << order.get_order_info() << std::endl; 
             return;
         }
     }
@@ -23,7 +23,7 @@ void Client::searchOrderByID(int id) {
 void Client::searchOrderByFullName(const std::string& fullName) {
     for (const auto& order : orders) {
         if (order.getClientName() == fullName) { // Предполагается наличие getClientName()
-            std::cout << "Заказ для " << fullName << " найден: " << order.getDetails() << std::endl;
+            std::cout << "Заказ для " << fullName << " найден: " << order.get_order_info() << std::endl;
             return;
         }
     }
@@ -34,7 +34,7 @@ void Client::searchOrderByFullName(const std::string& fullName) {
 void Client::searchOrderByStatus(const std::string& status) {
     for (const auto& order : orders) {
         if (order.getStatus() == status) { // Предполагается наличие getStatus()
-            std::cout << "Заказ со статусом " << status << " найден: " << order.getDetails() << std::endl;
+            std::cout << "Заказ со статусом " << status << " найден: " << order.get_order_info() << std::endl;
         }
     }
 }
@@ -69,7 +69,7 @@ Order Client::returnOrder(std::string reason) {
     if (!receivedOrders.empty()) {
         Order order = receivedOrders.back();
         receivedOrders.pop_back();
-        std::cout << "Возврат заказа: " << order.getDetails() << " по причине: " << reason << std::endl;
+        std::cout << "Возврат заказа: " << order.get_order_info() << " по причине: " << reason << std::endl;
         return order;
     }
     throw std::runtime_error("Нет доступных заказов для возврата.");

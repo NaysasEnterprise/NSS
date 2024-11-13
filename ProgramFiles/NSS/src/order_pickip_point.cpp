@@ -1,7 +1,7 @@
-#include "PVZ.h"
+#include "../include/order_pickup_point.h"
 #include <string>
 #include <vector>
-#include "order.h"
+#include "../include/order.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -9,7 +9,7 @@
 #define CLIENTS_FILE "clients.txt" // Имя файла, где хранятся клиенты
 
 // Функция для проверки существования клиента в базе данных
-bool FunctionsPVZControl :: clientExists(const std::string& firstName, const std::string& lastName) {
+bool FunctionsOPPControl :: clientExists(const std::string& firstName, const std::string& lastName) {
     std::ifstream file(CLIENTS_FILE);
     if (!file.is_open()) {
         std::cerr << "Не удалось открыть файл с клиентами." << std::endl;
@@ -30,7 +30,7 @@ bool FunctionsPVZControl :: clientExists(const std::string& firstName, const std
 }
 
 // Функция для добавления нового клиента в базу данных
-void FunctionsPVZControl :: addClient(const std::string& firstName, const std::string& lastName) {
+void FunctionsOPPControl :: addClient(const std::string& firstName, const std::string& lastName) {
     std::ofstream file(CLIENTS_FILE, std::ios::app);
     if (!file.is_open()) {
         std::cerr << "Не удалось открыть файл для записи клиента." << std::endl;
@@ -41,7 +41,7 @@ void FunctionsPVZControl :: addClient(const std::string& firstName, const std::s
     file.close();
     std::cout << "Клиент " << firstName << " " << lastName << " успешно добавлен в базу данных." << std::endl;
 }
-void FunctionsPVZControl :: clientLoginOrRegister() {
+void FunctionsOPPControl :: clientLoginOrRegister() {
     std::string firstName, lastName;
     std::cout << "Введите имя: ";
     std::cin >> firstName;
