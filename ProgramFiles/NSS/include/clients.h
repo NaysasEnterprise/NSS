@@ -12,6 +12,9 @@ private:
     std::vector<Order> orders;
     std::vector<Order> receivedOrders;
 public:
+
+    Client(int clientId, const std::string& firstName, const std::string& lastName)
+        : id(clientId), firstName(firstName), lastName(lastName) {}
     // Геттеры для доступа к полям
     int getId() const;
     std::string getFirstName() const;
@@ -36,8 +39,10 @@ public:
 
     void removeOrder(int orderId);
     // Функция для вывода информации о клиенте
-    
+
     Order returnOrder(std::string reason);
 
     void printClientInfo();
+
+    int generateUniqueClientId();
 };

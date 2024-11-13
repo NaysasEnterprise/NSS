@@ -8,7 +8,7 @@
 #include "../include/order_pickup_point.h"
 
 
-using namespace FunctionsPVZControl;
+using namespace FunctionsOPPControl;
 
 #pragma comment(lib, "Ws2_32.lib") // Подключение библиотеки WinSock
 
@@ -35,7 +35,7 @@ int main() {
             // Меню для администратора
             int adminChoice;
             while (true) {
-                adminMenu();
+                FunctionsOPPControl::adminMenu();
                 std::cout << "Введите ваш выбор: ";
                 std::cin >> adminChoice;
 
@@ -53,6 +53,9 @@ int main() {
                 case 4:
                     std::cout << "Возвращение в главное меню...\n";
                     goto mainMenu;  // Выход из цикла администратора и возврат в главное меню
+                case 5:
+                    FunctionsOPPControl::showAllClients();  // Вызов функции для отображения всех клиентов
+                    break;
                 default:
                     std::cout << "Некорректный выбор. Попробуйте снова.\n";
                 }
@@ -113,7 +116,7 @@ int main() {
     int opt = 1;
     int addrlen = sizeof(address);
     char buffer[BUFFER_SIZE] = { 0 };
-    const char* response = "Заказ принят";
+    const char* response = "fkfkfkkfkf";
 
     // Инициализация WinSock
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
