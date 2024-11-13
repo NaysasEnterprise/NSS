@@ -1,5 +1,5 @@
 ﻿// product.cpp
-#include "product.h"
+#include "../include/product.h"
 #include <iostream>
 
 // Конструктор
