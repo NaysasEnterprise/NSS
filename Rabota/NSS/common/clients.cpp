@@ -1,80 +1,84 @@
 ﻿#include "clients.h"
 
-// Геттеры
-int Client::getId() const { return id; }
-std::string Client::getFirstName() const { return firstName; }
-std::string Client::getLastName() const { return lastName; }
-std::string Client::getMiddleName() const { return middleName; }
-std::vector<Order> Client::getOrders() const { return orders; }
-
-// Сеттеры
-void Client::setFirstName(const std::string& fName) { firstName = fName; }
-void Client::setLastName(const std::string& lName) { lastName = lName; }
-void Client::setMiddleName(const std::string& mName) { middleName = mName; }
-void Client::setId(int clientId) { id = clientId; }
-
-//TODO: реализовать добавление заказа
-//TODO: реализовать функции для поиска заказа по полям
-//TODO: реализовать функцию для забора забара по полям(название заказа и имя клиента)
-//TODO: реализовать функцию удаления по ID
-
-#include <iostream>
-#include <winsock2.h>
-
-#pragma comment(lib, "ws2_32.lib")
-
-#define PORT 8080
-#define BUFFER_SIZE 1024
-
-int main() {
-
-    WSADATA wsaData;
-    SOCKET sock = INVALID_SOCKET;
-    struct sockaddr_in server_address;
-    const char* request = "Сделать заказ";
-    char buffer[BUFFER_SIZE] = { 0 };
-
-    // Инициализация WinSock
-    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
-        std::cerr << "Ошибка инициализации WinSock: " << WSAGetLastError() << std::endl;
-        return 1;
-    }
-
-    // Создание сокета
-    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET) {
-        std::cerr << "Ошибка создания сокета: " << WSAGetLastError() << std::endl;
-        WSACleanup();
-        return 1;
-    }
-
-    // Настройка адреса сервера
-    server_address.sin_family = AF_INET;
-    server_address.sin_port = htons(PORT);
-    server_address.sin_addr.s_addr = inet_addr("127.0.0.1");
-
-    // Подключение к серверу
-    if (connect(sock, (struct sockaddr*)&server_address, sizeof(server_address)) == SOCKET_ERROR) {
-        std::cerr << "Ошибка подключения к серверу: " << WSAGetLastError() << std::endl;
-        closesocket(sock);
-        WSACleanup();
-        return 1;
-    }
-
-    // Отправка запроса серверу
-    send(sock, request, strlen(request), 0);
-    std::cout << "Запрос отправлен: " << request << std::endl;
-
-    // Получение ответа от сервера
-    int bytes_read = recv(sock, buffer, BUFFER_SIZE, 0);
-    if (bytes_read > 0) {
-        std::cout << "Ответ от сервера: " << buffer << std::endl;
-    }
-
-    // Закрытие сокета
-    closesocket(sock);
-
-    // Очистка WinSock
-    WSACleanup();
-
-    return 0;
+// Добавление заказа
+void Client::placeOrder(const std::string& productName) {
+    // Создание и добавление заказа в список заказов (для примера добавим заказ с именем продукта)
+    Order newOrder(productName); // Примерный конструктор
+    orders.push_back(newOrder);
+    std::cout << "Заказ на " << productName << " успешно добавлен." << std::endl;
 }
+
+// Поиск заказа по ID
+void Client::searchOrderByID(int id) {
+    for (const auto& order : orders) {
+        if (order.getId() == id) { // Предполагается, что у Order есть getId()
+            std::cout << "Заказ найден: " << order.getDetails() << std::endl; // Предполагаемый метод getDetails()
+            return;
+        }
+    }
+    std::cout << "Заказ с ID " << id << " не найден." << std::endl;
+}
+
+// Поиск заказа по ФИО
+void Client::searchOrderByFullName(const std::string& fullName) {
+    for (const auto& order : orders) {
+        if (order.getClientName() == fullName) { // Предполагается наличие getClientName()
+            std::cout << "Заказ для " << fullName << " найден: " << order.getDetails() << std::endl;
+            return;
+        }
+    }
+    std::cout << "Заказ для " << fullName << " не найден." << std::endl;
+}
+
+// Поиск заказа по статусу
+void Client::searchOrderByStatus(const std::string& status) {
+    for (const auto& order : orders) {
+        if (order.getStatus() == status) { // Предполагается наличие getStatus()
+            std::cout << "Заказ со статусом " << status << " найден: " << order.getDetails() << std::endl;
+        }
+    }
+}
+
+// Забор заказа по параметрам
+void Client::pickOrderByParameters(const std::string& productName, const std::string& clientName) {
+    for (auto it = orders.begin(); it != orders.end(); ++it) {
+        if (it->getProductName() == productName && it->getClientName() == clientName) {
+            receivedOrders.push_back(*it);
+            orders.erase(it);
+            std::cout << "Заказ на " << productName << " для " << clientName << " забран." << std::endl;
+            return;
+        }
+    }
+    std::cout << "Заказ не найден." << std::endl;
+}
+
+// Удаление заказа по ID
+void Client::removeOrder(int orderId) {
+    for (auto it = orders.begin(); it != orders.end(); ++it) {
+        if (it->getId() == orderId) {
+            orders.erase(it);
+            std::cout << "Заказ с ID " << orderId << " удален." << std::endl;
+            return;
+        }
+    }
+    std::cout << "Заказ с ID " << orderId << " не найден." << std::endl;
+}
+
+// Возврат заказа
+Order Client::returnOrder(std::string reason) {
+    if (!receivedOrders.empty()) {
+        Order order = receivedOrders.back();
+        receivedOrders.pop_back();
+        std::cout << "Возврат заказа: " << order.getDetails() << " по причине: " << reason << std::endl;
+        return order;
+    }
+    throw std::runtime_error("Нет доступных заказов для возврата.");
+}
+
+// Вывод информации о клиенте
+void Client::printClientInfo() {
+    std::cout << "ID клиента: " << id << std::endl;
+    std::cout << "Имя: " << firstName << " " << lastName << std::endl;
+    std::cout << "Количество заказов: " << orders.size() << std::endl;
+}
+

@@ -27,5 +27,10 @@ public:
 
     // Получить данные о заказе в формате строки
     std::string get_order_info() const;
+
+    // Недостающие геттеры
+    int getId() const;                    // Получить ID заказа
+    std::string getProductName() const;    // Получить название продукта
+    std::string getClientName() const;     // Получить имя клиента
+    std::string getStatus() const;         // Получить статус заказа
 };
-//пока всё еще не точно, функции точно будут убраны или заменены на какие то другие, либо же добавлены

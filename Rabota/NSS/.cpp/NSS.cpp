@@ -8,11 +8,12 @@
 #include "../common/PVZ.h"
 using namespace FunctionsPVZControl;
 
-#pragma comment(lib, "Ws2_32.lib") // Подключение библиотеки W  inSock
+#pragma comment(lib, "Ws2_32.lib") // Подключение библиотеки WinSock
 
 #define PORT 8080 // Указываем порт
 
 int main() {
+    system("chcp 65001");
     setlocale(LC_ALL, "Russian");  // Установка локали для поддержки русского языка
 
     int choice = 0;
