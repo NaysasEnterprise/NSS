@@ -9,7 +9,6 @@ private:
     int id;
     std::string firstName;
     std::string lastName;
-    std::string middleName;
     std::vector<Order> orders;
     std::vector<Order> receivedOrders;
 public:
@@ -17,13 +16,11 @@ public:
     int getId() const;
     std::string getFirstName() const;
     std::string getLastName() const;
-    std::string getMiddleName() const;
     std::vector<Order> getOrders() const;
 
     // Сеттеры для изменения полей
     void setFirstName(const std::string& fName);
     void setLastName(const std::string& lName);
-    void setMiddleName(const std::string& mName);
     void setId(int clientId);
 
     // Заголовок функции для оформления заказа по названию товара

@@ -58,7 +58,8 @@ int main() {
         }
 
         case 2: {
-            // Меню для клиента
+            clientLoginOrRegister(); // Вход или регистрация клиента
+
             int clientChoice;
             while (true) {
                 clientMenu();
@@ -78,7 +79,7 @@ int main() {
                     break;
                 case 4:
                     std::cout << "Возвращение в главное меню...\n";
-                    goto mainMenu;  // Выход из цикла клиента и возврат в главное меню
+                    goto mainMenu;  // Возврат в главное меню
                 default:
                     std::cout << "Некорректный выбор. Попробуйте снова.\n";
                 }
