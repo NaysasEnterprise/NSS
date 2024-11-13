@@ -12,7 +12,7 @@ using namespace FunctionsPVZControl;
 
 #define PORT 8080 // Указываем порт
 
-/*int main() {
+int main() {
     setlocale(LC_ALL, "Russian");  // Установка локали для поддержки русского языка
 
     int choice = 0;
@@ -98,10 +98,10 @@ using namespace FunctionsPVZControl;
     }
 
     return 0;
-}*/
+}
 #define BUFFER_SIZE 1024
 
-int main() {
+/*int main() {
     setlocale(LC_ALL, "Russian");
     WSADATA wsaData;
     SOCKET server_fd, new_socket;
@@ -109,7 +109,7 @@ int main() {
     int opt = 1;
     int addrlen = sizeof(address);
     char buffer[BUFFER_SIZE] = { 0 };
-    const char* response = "Заказ принят";
+    const char* response = "fkfkfkkfkf";
 
     // Инициализация WinSock
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
@@ -184,4 +184,4 @@ int main() {
     WSACleanup();
 
     return 0;
-}
+}*/
