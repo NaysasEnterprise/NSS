@@ -1,18 +1,18 @@
 ﻿#include "../include/clients.h"
 
 // Добавление заказа
-void Client::placeOrder(const std::string& productName) {
+/*void Client::placeOrder(const std::string& productName) {
     // Создание и добавление заказа в список заказов (для примера добавим заказ с именем продукта)
     Order newOrder(productName); // Примерный конструктор
     orders.push_back(newOrder);
     std::cout << "Заказ на " << productName << " успешно добавлен." << std::endl;
-}
+}*/
 
 // Поиск заказа по ID
 void Client::searchOrderByID(int id) {
     for (const auto& order : orders) {
         if (order.getId() == id) { // Предполагается, что у Order есть getId()
-            std::cout << "Заказ найден: " << order.get_order_info() << std::endl; 
+            std::cout << "Заказ найден: " << order.get_order_info() << std::endl;
             return;
         }
     }
@@ -82,3 +82,7 @@ void Client::printClientInfo() {
     std::cout << "Количество заказов: " << orders.size() << std::endl;
 }
 
+int Client::generateUniqueClientId() {
+    static int idCounter = 0;
+    return ++idCounter;
+}
