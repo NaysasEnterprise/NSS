@@ -8,7 +8,7 @@ class PVZ {
 	//TODO: Продумать работу ПВЗ
 };
 
-namespace FunctionsPVZControl {
+namespace FunctionsOPPControl {
 	void adminMenu();
 	void clientMenu();
 	bool clientExists(const std::string& firstName, const std::string& lastName);

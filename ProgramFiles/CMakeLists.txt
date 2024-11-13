@@ -5,16 +5,16 @@
 # Добавьте источник в исполняемый файл этого проекта.
 # NSS executable
 add_executable (NSS 
-    "NSS/.cpp/NSS.cpp"
+    "NSS/src/NSS.cpp"
     "NSS/socket/socket.cpp"
     "NSS/namespace/functions.cpp"
-    "NSS/common/product.cpp"
-    "NSS/common/PVZ.cpp"
+    "NSS/src/product.cpp"
+    "NSS/src/order_pickip_point.cpp"
 )
 
 # Client executable (предположим, что main() определена в clients.cpp)
 add_executable (Client 
-    "NSS/common/clients.cpp"
+    "NSS/src/clients.cpp"
 )
 
 
