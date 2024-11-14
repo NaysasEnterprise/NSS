@@ -1,10 +1,9 @@
-﻿// product.cpp
-#include "../include/product.h"
-#include <iostream>
+﻿#include "../include/product.h"
+#include <random>
 
 // Конструктор
 Product::Product(int productId, const std::string& productName, double productPrice, bool availability)
-    : id(productId), name(productName), price(productPrice), isAvailable(availability) {} //TODO: Реализовать конструктор
+    : id(productId), name(productName), price(productPrice), isAvailable(availability) {}
 
 // Геттеры
 int Product::getId() const { return id; }
@@ -18,12 +17,29 @@ void Product::setName(const std::string& productName) { name = productName; }
 void Product::setPrice(double productPrice) { price = productPrice; }
 void Product::setAvailability(bool availability) { isAvailable = availability; }
 
-// Функция для вывода информации о товаре
-void Product::printProductInfo() const {
-    std::cout << "ID товара: " << id << std::endl;
-    std::cout << "Название: " << name << std::endl;
-    std::cout << "Цена: " << price << std::endl;
-    std::cout << "Наличие: " << (isAvailable ? "Да" : "Нет") << std::endl;
-} //тут еще надо продумать как у нас будет работать с клиентом(будут скорее всего заводиться "аккаунты" клиентов
-//TODO: Продумать работу с клиентом
-//TODO: Переписать на перегрузку вывода
+// Перегрузка оператора вывода
+std::ostream& operator<<(std::ostream& os, const Product& product) {
+    os << "ID товара: " << product.id << "\n"
+        << "Название: " << product.name << "\n"
+        << "Цена: " << product.price << "\n"
+        << "Наличие: " << (product.isAvailable ? "Да" : "Нет") << "\n";
+    return os;
+}
+
+// Генерация списка продуктов
+std::vector<Product> Product::generateProducts(int count) {
+    std::vector<Product> products;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> priceDistrib(10.0, 500.0);
+    std::uniform_int_distribution<> availabilityDistrib(0, 1);
+
+    for (int i = 1; i <= count; ++i) {
+        double price = priceDistrib(gen);
+        bool availability = availabilityDistrib(gen);
+        std::string productName = "Product" + std::to_string(i);
+        products.emplace_back(i, productName, price, availability);
+    }
+
+    return products;
+}

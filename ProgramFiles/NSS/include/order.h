@@ -1,36 +1,31 @@
-﻿#include <string>
-#pragma once
+﻿#pragma once
+#include <string>
+#include "product.h"
 
-// Структура описания заказа
 class Order {
-public:
+private:
     int order_id;
-    std::string product_name;
+    Product product;           // Продукт, связанный с заказом
     std::string client_name;
     std::string order_date;
     std::string status;
     int quantity;
     bool is_ready;
 
+public:
     // Конструктор заказа
-    Order(int order_id, const std::string& product, const std::string& client,
-        const std::string& date, const std::string& order_status, int qty);
+    Order(int orderId, const Product& prod, const std::string& client, const std::string& date,
+        const std::string& orderStatus, int qty);
 
-    // Функция для изменения статуса заказа
-    void update_status(const std::string& new_status);
+    // Функции для работы с заказом
+    void updateStatus(const std::string& newStatus);
+    bool isOrderReady() const;
+    int getQuantity() const;
+    std::string getOrderInfo() const;
 
-    // Функция для проверки готовности заказа
-    bool is_order_ready() const;
-
-    // Функция для проверки количества товаров в заказе
-    int get_quantity() const;
-
-    // Получить данные о заказе в формате строки
-    std::string get_order_info() const;
-
-    // Недостающие геттеры
-    int getId() const;                    // Получить ID заказа
-    std::string getProductName() const;    // Получить название продукта
-    std::string getClientName() const;     // Получить имя клиента
-    std::string getStatus() const;         // Получить статус 
+    // Геттеры
+    int getId() const;
+    std::string getProductName() const;
+    std::string getClientName() const;
+    std::string getStatus() const;
 };
