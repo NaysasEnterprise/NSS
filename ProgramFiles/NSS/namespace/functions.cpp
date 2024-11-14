@@ -10,6 +10,7 @@ void FunctionsOPPControl::adminMenu() {
     std::cout << "2. Найти заказ по ID\n";
     std::cout << "3. Добавить новый заказ\n";
     std::cout << "4. Вернуться в главное меню\n";
+    std::cout << "5. Показать всех клиентов\n";
 }
 void FunctionsOPPControl::clientMenu() {
     std::cout << "\n--- Клиент ---\n";

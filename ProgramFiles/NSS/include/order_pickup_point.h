@@ -5,13 +5,18 @@
 #pragma once
 
 class PVZ {
-	//TODO: Продумать работу ПВЗ
+    //TODO: Продумать работу ПВЗ
 };
 
 namespace FunctionsOPPControl {
-	void adminMenu();
-	void clientMenu();
-	bool clientExists(const std::string& firstName, const std::string& lastName);
-	void addClient(const std::string& firstName, const std::string& lastName);
-	void clientLoginOrRegister();
+    void adminMenu();
+    void clientMenu();
+    bool clientExists(const std::string& firstName, const std::string& lastName);
+    void addClient(const std::string& firstName, const std::string& lastName);
+    void clientLoginOrRegister();
+
+    int generateUniqueClientId();
+    void addClient(const std::string& firstName, const std::string& lastName);
+    bool clientExists(const std::string& firstName, const std::string& lastName);
+    void showAllClients();
 }
