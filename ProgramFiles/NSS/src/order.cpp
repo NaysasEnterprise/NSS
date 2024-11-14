@@ -40,15 +40,12 @@ std::string Order::getOrderInfo() const {
 int Order::getId() const {
     return order_id;
 }
-
 std::string Order::getProductName() const {
     return product.getName();
 }
-
 std::string Order::getClientName() const {
     return client_name;
 }
-
 std::string Order::getStatus() const {
     return status;
 }
