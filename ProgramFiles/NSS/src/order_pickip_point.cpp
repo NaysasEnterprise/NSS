@@ -108,3 +108,81 @@ void FunctionsOPPControl::showAllClients() {
     }
     file.close();
 }
+
+
+// Конструктор
+PVZ::PVZ(int id, const std::string& name, double x, double y)
+    : id(id), name(name), coordX(x), coordY(y) {}
+
+// Геттеры
+int PVZ::getId() const {
+    return id;
+}
+std::string PVZ::getName() const {
+    return name;
+}
+double PVZ::getCoordX() const {
+    return coordX;
+}
+double PVZ::getCoordY() const {
+    return coordY;
+}
+
+// Вывод информации о ПВЗ
+void PVZ::printPVZInfo() const {
+    std::cout << "ПВЗ ID: " << id
+        << ", Название: " << name
+        << ", Координаты: (" << coordX << ", " << coordY << ")\n";
+}
+
+void FunctionsOPPControl::addPVZToFile(const PVZ& pvz) {
+    std::ofstream file("pvz_data.txt", std::ios::app);
+    if (file.is_open()) {
+        file << pvz.getId() << " " << pvz.getName() << " "
+            << pvz.getCoordX() << " " << pvz.getCoordY() << "\n";
+        file.close();
+    }
+    else {
+        std::cerr << "Ошибка: Не удалось открыть файл для записи.\n";
+    }
+}
+
+// Создание нового ПВЗ администратором
+void FunctionsOPPControl::adminCreatePVZ() {
+    int id = generateUniquePVZId();  // Автоматическое присвоение ID
+    double x, y;
+    std::string name;
+
+    std::cout << "Создание нового ПВЗ\n";
+    std::cout << "ID ПВЗ: " << id << " (автоматически присвоен)\n";
+    std::cout << "Введите название ПВЗ: ";
+    std::cin >> name;
+    std::cout << "Введите координату X: ";
+    std::cin >> x;
+    std::cout << "Введите координату Y: ";
+    std::cin >> y;
+
+    PVZ newPVZ(id, name, x, y);
+    addPVZToFile(newPVZ);
+    std::cout << "ПВЗ успешно создан и добавлен в файл.\n";
+}
+
+
+// Чтение всех ПВЗ из файла и вывод на экран
+void FunctionsOPPControl::showAllPVZ() {
+    std::ifstream file("pvz_data.txt");
+    if (!file.is_open()) {
+        std::cerr << "Ошибка: Не удалось открыть файл.\n";
+        return;
+    }
+
+    std::cout << "\nСписок всех ПВЗ:\n";
+    int id, x, y;
+    std::string name;
+    while (file >> id >> name >> x >> y) {
+        std::cout << "ID: " << id << ", Название: " << name
+            << ", Координаты: (" << x << ", " << y << ")\n";
+    }
+    file.close();
+}
+

@@ -10,12 +10,12 @@ add_executable (NSS
     "NSS/namespace/functions.cpp"
     "NSS/src/product.cpp"
     "NSS/src/order_pickip_point.cpp"
-)
+  )
 
 # Client executable (предположим, что main() определена в clients.cpp)
 add_executable (Client 
     "NSS/src/clients.cpp"
-)
+  )
 
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)

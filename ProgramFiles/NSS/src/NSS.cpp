@@ -36,28 +36,32 @@ int main() {
             int adminChoice;
             while (true) {
                 FunctionsOPPControl::adminMenu();
-                std::cout << "Введите ваш выбор: ";
                 std::cin >> adminChoice;
 
                 switch (adminChoice) {
                 case 1:
-                    std::cout << "Показать все заказы (здесь будет логика)\n";
+                    // Вызов функции просмотра всех заказов
                     break;
                 case 2:
-                    std::cout << "Введите ID заказа для поиска: ";
-                    // Логика для поиска заказа по ID
+                    // Вызов функции поиска заказа по ID
                     break;
                 case 3:
-                    std::cout << "Добавление нового заказа (здесь будет логика)\n";
+                    // Вызов функции добавления нового заказа
                     break;
                 case 4:
-                    std::cout << "Возвращение в главное меню...\n";
-                    goto mainMenu;  // Выход из цикла администратора и возврат в главное меню
-                case 5:
-                    FunctionsOPPControl::showAllClients();  // Вызов функции для отображения всех клиентов
+                    FunctionsOPPControl::adminCreatePVZ();  // Создание нового ПВЗ
                     break;
+                case 5:
+                    FunctionsOPPControl::showAllPVZ();      // Показ всех ПВЗ
+                    break;
+                case 6:
+                    FunctionsOPPControl::showAllClients();  // Показ всех клиентов
+                    break;
+                case 7:
+                    std::cout << "Возврат в главное меню.\n";
+                    goto mainMenu;  // Возврат в главное меню
                 default:
-                    std::cout << "Некорректный выбор. Попробуйте снова.\n";
+                    std::cout << "Неверный выбор. Пожалуйста, попробуйте снова.\n";
                 }
             }
             break;
