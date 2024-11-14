@@ -4,7 +4,7 @@
 #include <iostream>
 #pragma once
 
-class PVZ {
+class OPP {
 	//TODO: Продумать работу ПВЗ
 };
 
