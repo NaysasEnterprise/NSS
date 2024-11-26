@@ -48,4 +48,8 @@ std::string Order::getClientName() const {
 }
 std::string Order::getStatus() const {
     return status;
+<<<<<<< HEAD
 }
+=======
+}p
+>>>>>>> d127afe88b3b6eadcb1cfeeab7479238ed605cc9

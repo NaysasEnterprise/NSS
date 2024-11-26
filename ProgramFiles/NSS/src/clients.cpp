@@ -11,8 +11,13 @@
 // Поиск заказа по ID
 void Client::searchOrderByID(int id) {
     for (const auto& order : orders) {
+<<<<<<< HEAD
         if (order.getId() == id) { // Предполагается, что у Order есть getId()
             std::cout << "Заказ найден: " << order.get_order_info() << std::endl;
+=======
+        if (order.getId() == id) { 
+            std::cout << "Заказ найден: " << order.getOrderInfo() << std::endl;
+>>>>>>> d127afe88b3b6eadcb1cfeeab7479238ed605cc9
             return;
         }
     }
@@ -22,8 +27,8 @@ void Client::searchOrderByID(int id) {
 // Поиск заказа по ФИО
 void Client::searchOrderByFullName(const std::string& fullName) {
     for (const auto& order : orders) {
-        if (order.getClientName() == fullName) { // Предполагается наличие getClientName()
-            std::cout << "Заказ для " << fullName << " найден: " << order.get_order_info() << std::endl;
+        if (order.getClientName() == fullName) { 
+            std::cout << "Заказ для " << fullName << " найден: " << order.getOrderInfo() << std::endl;
             return;
         }
     }
@@ -33,8 +38,8 @@ void Client::searchOrderByFullName(const std::string& fullName) {
 // Поиск заказа по статусу
 void Client::searchOrderByStatus(const std::string& status) {
     for (const auto& order : orders) {
-        if (order.getStatus() == status) { // Предполагается наличие getStatus()
-            std::cout << "Заказ со статусом " << status << " найден: " << order.get_order_info() << std::endl;
+        if (order.getStatus() == status) { 
+            std::cout << "Заказ со статусом " << status << " найден: " << order.getOrderInfo() << std::endl;
         }
     }
 }
@@ -69,7 +74,7 @@ Order Client::returnOrder(std::string reason) {
     if (!receivedOrders.empty()) {
         Order order = receivedOrders.back();
         receivedOrders.pop_back();
-        std::cout << "Возврат заказа: " << order.get_order_info() << " по причине: " << reason << std::endl;
+        std::cout << "Возврат заказа: " << order.getOrderInfo() << " по причине: " << reason << std::endl;
         return order;
     }
     throw std::runtime_error("Нет доступных заказов для возврата.");

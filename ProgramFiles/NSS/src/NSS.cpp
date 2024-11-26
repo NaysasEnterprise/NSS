@@ -15,7 +15,7 @@ using namespace FunctionsOPPControl;
 #define PORT 8080 // Указываем порт
 
 int main() {
-    system("chcp 65001");
+    system("chcp 1251");
     setlocale(LC_ALL, "Russian");  // Установка локали для поддержки русского языка
 
     int choice = 0;

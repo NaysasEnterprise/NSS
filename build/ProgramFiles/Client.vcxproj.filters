@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\gslc209\Documents\ProjectNNTU\NSS\ProgramFiles\NSS\src\clients.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\gslc209\Documents\ProjectNNTU\NSS\ProgramFiles\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{83B4E0C0-C198-35EB-BE25-A503DCD99243}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
