@@ -6,7 +6,7 @@
 #include <fstream>
 #include <sstream>
 
-#define CLIENTS_FILE "clients.txt" // Имя файла, где хранятся клиенты
+#define CLIENTS_FILE "clients.txt" //  ??? ?????, ??? ???????? ???????
 
 
 // Функция для добавления нового клиента в базу данных
