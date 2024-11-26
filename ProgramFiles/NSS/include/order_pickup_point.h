@@ -27,17 +27,16 @@ public:
 namespace FunctionsOPPControl {
     void adminMenu();
     void clientMenu();
-    bool clientExists(const std::string& firstName, const std::string& lastName);
-    void addClient(const std::string& firstName, const std::string& lastName);
-    void clientLoginOrRegister();
 
+    void clientLoginOrRegister();
     int generateUniqueClientId();
     void addClient(const std::string& firstName, const std::string& lastName);
     bool clientExists(const std::string& firstName, const std::string& lastName);
-    void showAllClients();
 
+    void showAllClients();
+    void showAllPVZ();
+
+    void adminCreatePVZ();
     int generateUniquePVZId();
-    void adminCreatePVZ();      // Создание ПВЗ администратором
-    void showAllPVZ();          // Просмотр всех ПВЗ
     void addPVZToFile(const PVZ& pvz);
 }

@@ -1,12 +1,55 @@
 ﻿#include "../include/clients.h"
 
+#define COMMON_ORDERS_FILE "all_orders.txt"
+
+Client::Client(int clientId, const std::string& firstName, const std::string& lastName)
+    : id(clientId), firstName(firstName), lastName(lastName) {}
+
+int Client::getId() const{
+    return id;
+}
+int Client::getOPPId() const{
+    return opp_id;
+}
+std::string Client::getFirstName() const {
+    return firstName;
+}
+std::string Client::getLastName() const {
+    return lastName;
+}
+std::vector<Order> Client::getOrders() const {
+    return orders;
+}
+
+void Client::setFirstName(const std::string& fName) {
+    firstName = fName;
+}
+void Client::setLastName(const std::string& lName) {
+    lastName = lName;
+}
+void Client::setId(int clientId) {
+    id = clientId;
+}
+int Client::setOPPId(int oppId) {
+    opp_id = oppId;
+}
+
 // Добавление заказа
-/*void Client::placeOrder(const std::string& productName) {
-    // Создание и добавление заказа в список заказов (для примера добавим заказ с именем продукта)
-    Order newOrder(productName); // Примерный конструктор
+void Client::placeOrder(const Product& produc, int& qty) {
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+
+    Order newOrder(generateUniqueClientId,product,firstName+" "+lastName, std::put_time(&tm, "%d-%m-%Y %H:%M:%S"), "Сборка", qty);
     orders.push_back(newOrder);
     std::cout << "Заказ на " << productName << " успешно добавлен." << std::endl;
-}*/
+
+    std::ofstream file(COMMON_ORDERS_FILE, std::ios::app);
+    if (file.is_open()) {
+        file << id << " " << opp_id " " << newOrder.getId << " " << newOrder.getClientName() << " " << newOrder.getProductName() << " " << newOrder.getStatus() << "\n";
+        file.close();
+        //TODO: !!Реализовать взаимодействие с SQL
+    }
+}
 
 // Поиск заказа по ID
 void Client::searchOrderByID(int id) {
@@ -17,17 +60,6 @@ void Client::searchOrderByID(int id) {
         }
     }
     std::cout << "Заказ с ID " << id << " не найден." << std::endl;
-}
-
-// Поиск заказа по ФИО
-void Client::searchOrderByFullName(const std::string& fullName) {
-    for (const auto& order : orders) {
-        if (order.getClientName() == fullName) { // Предполагается наличие getClientName()
-            std::cout << "Заказ для " << fullName << " найден: " << order.get_order_info() << std::endl;
-            return;
-        }
-    }
-    std::cout << "Заказ для " << fullName << " не найден." << std::endl;
 }
 
 // Поиск заказа по статусу
@@ -52,18 +84,6 @@ void Client::pickOrderByParameters(const std::string& productName, const std::st
     std::cout << "Заказ не найден." << std::endl;
 }
 
-// Удаление заказа по ID
-void Client::removeOrder(int orderId) {
-    for (auto it = orders.begin(); it != orders.end(); ++it) {
-        if (it->getId() == orderId) {
-            orders.erase(it);
-            std::cout << "Заказ с ID " << orderId << " удален." << std::endl;
-            return;
-        }
-    }
-    std::cout << "Заказ с ID " << orderId << " не найден." << std::endl;
-}
-
 // Возврат заказа
 Order Client::returnOrder(std::string reason) {
     if (!receivedOrders.empty()) {
@@ -81,8 +101,13 @@ void Client::printClientInfo() {
     std::cout << "Имя: " << firstName << " " << lastName << std::endl;
     std::cout << "Количество заказов: " << orders.size() << std::endl;
 }
+void Client::printOrders() {
+    for (int i = 0; i < orders.size; i++) {
+        std::cout << orders[i].getOrderInfo << std::endl;
+    }
+}
 
 int Client::generateUniqueClientId() {
-    static int idCounter = 0;
+    static int idCounter = orders.size();
     return ++idCounter;
 }
