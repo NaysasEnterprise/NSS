@@ -15,6 +15,7 @@ public:
 
     Client(int clientId, const std::string& firstName, const std::string& lastName)
         : id(clientId), firstName(firstName), lastName(lastName) {}
+
     // Геттеры для доступа к полям
     int getId() const;
     std::string getFirstName() const;

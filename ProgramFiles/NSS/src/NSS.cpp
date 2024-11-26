@@ -11,7 +11,6 @@
 using namespace FunctionsOPPControl;
 
 #pragma comment(lib, "Ws2_32.lib") // Подключение библиотеки WinSock
-
 #define PORT 8080 // Указываем порт
 
 int main() {

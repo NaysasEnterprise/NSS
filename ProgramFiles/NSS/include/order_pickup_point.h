@@ -40,7 +40,7 @@ public:
     // Добавление заказа в инвентарь ПВЗ
     void addOrderToInventory(const Order& order) {
         inventory.push_back(order);
-        std::cout << "Заказ с ID " << order.getOrderID() << " добавлен в инвентарь ПВЗ.\n";
+        std::cout << "Заказ с ID " << order.getOrderId() << " добавлен в инвентарь ПВЗ.\n";
     }
 
     // Получение всех заказов клиента
@@ -57,7 +57,7 @@ public:
     // Удаление заказа после получения
     bool removeOrder(const std::string& orderID) {
         for (auto it = inventory.begin(); it != inventory.end(); ++it) {
-            if (it->getOrderID() == orderID) {
+            if (it->getOrderId() == orderID) {
                 inventory.erase(it);
                 std::cout << "Заказ с ID " << orderID << " удалён из инвентаря.\n";
                 return true;
@@ -79,10 +79,9 @@ public:
     void printInventory() const {
         std::cout << "Список заказов в ПВЗ:\n";
         for (const auto& order : inventory) {
-            std::cout << "- Заказ ID: " << order.getOrderID() << "\n";
+            std::cout << "- Заказ ID: " << order.getOrderId() << "\n";
         }
     }
-};
 };
 
 namespace FunctionsOPPControl {
@@ -97,8 +96,8 @@ namespace FunctionsOPPControl {
     bool clientExists(const std::string& firstName, const std::string& lastName);
     void showAllClients();
 
-    int generateUniquePVZId();
-    void adminCreatePVZ();      // Создание ПВЗ администратором
-    void showAllPVZ();          // Просмотр всех ПВЗ
-    void addPVZToFile(const PVZ& pvz);
+    int generateUniqueOPPId();
+    void adminCreateOPP();      // Создание ПВЗ администратором
+    void showAllOPP();          // Просмотр всех ПВЗ
+    void addOPPToFile(const OPP& opp);
 }

@@ -24,7 +24,7 @@ public:
     std::string getOrderInfo() const;
 
     // Геттеры
-    int getId() const;
+    int getOrderId() const;
     std::string getProductName() const;
     std::string getClientName() const;
     std::string getStatus() const;

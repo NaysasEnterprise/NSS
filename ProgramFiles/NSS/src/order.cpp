@@ -37,7 +37,7 @@ std::string Order::getOrderInfo() const {
 }
 
 // Геттеры
-int Order::getId() const {
+int Order::getOrderId() const {
     return order_id;
 }
 std::string Order::getProductName() const {
@@ -48,8 +48,4 @@ std::string Order::getClientName() const {
 }
 std::string Order::getStatus() const {
     return status;
-<<<<<<< HEAD
-}
-=======
-}p
->>>>>>> d127afe88b3b6eadcb1cfeeab7479238ed605cc9
+

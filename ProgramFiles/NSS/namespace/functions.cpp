@@ -1,36 +1,36 @@
-#include "../include/order_pickup_point.h"
+п»ї#include "../include/order_pickup_point.h"
 #include <iostream>
-#include <random>  // Для генерации случайных чисел
-#include <set>     // Для хранения существующих ID
+#include <random>  // Р”Р»СЏ РіРµРЅРµСЂР°С†РёРё СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР»
+#include <set>     // Р”Р»СЏ С…СЂР°РЅРµРЅРёСЏ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС… ID
 #include <fstream>
 
 using namespace FunctionsOPPControl;
 
 
 void FunctionsOPPControl::adminMenu() {
-    std::cout << "\n--- Администратор ---\n";
-    std::cout << "1. Посмотреть все заказы\n";
-    std::cout << "2. Найти заказ по ID\n";
-    std::cout << "3. Добавить новый заказ\n";
-    std::cout << "4. Создать новый ПВЗ\n";
-    std::cout << "5. Показать все ПВЗ\n";
-    std::cout << "6. Показать всех клиентов\n";
-    std::cout << "7. Вернуться в главное меню\n";
-    std::cout << "Выберите опцию: ";
+    std::cout << "\n--- РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ ---\n";
+    std::cout << "1. РџРѕСЃРјРѕС‚СЂРµС‚СЊ РІСЃРµ Р·Р°РєР°Р·С‹\n";
+    std::cout << "2. РќР°Р№С‚Рё Р·Р°РєР°Р· РїРѕ ID\n";
+    std::cout << "3. Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІС‹Р№ Р·Р°РєР°Р·\n";
+    std::cout << "4. РЎРѕР·РґР°С‚СЊ РЅРѕРІС‹Р№ РџР’Р—\n";
+    std::cout << "5. РџРѕРєР°Р·Р°С‚СЊ РІСЃРµ РџР’Р—\n";
+    std::cout << "6. РџРѕРєР°Р·Р°С‚СЊ РІСЃРµС… РєР»РёРµРЅС‚РѕРІ\n";
+    std::cout << "7. Р’РµСЂРЅСѓС‚СЊСЃСЏ РІ РіР»Р°РІРЅРѕРµ РјРµРЅСЋ\n";
+    std::cout << "Р’С‹Р±РµСЂРёС‚Рµ РѕРїС†РёСЋ: ";
 }
 void FunctionsOPPControl::clientMenu() {
-    std::cout << "\n--- Клиент ---\n";
-    std::cout << "1. Посмотреть мои заказы\n";
-    std::cout << "2. Оформить новый заказ\n";
-    std::cout << "3. Найти заказ по ID\n";
-    std::cout << "4. Вернуться в главное меню\n";
+    std::cout << "\n--- РљР»РёРµРЅС‚ ---\n";
+    std::cout << "1. РџРѕСЃРјРѕС‚СЂРµС‚СЊ РјРѕРё Р·Р°РєР°Р·С‹\n";
+    std::cout << "2. РћС„РѕСЂРјРёС‚СЊ РЅРѕРІС‹Р№ Р·Р°РєР°Р·\n";
+    std::cout << "3. РќР°Р№С‚Рё Р·Р°РєР°Р· РїРѕ ID\n";
+    std::cout << "4. Р’РµСЂРЅСѓС‚СЊСЃСЏ РІ РіР»Р°РІРЅРѕРµ РјРµРЅСЋ\n";
 }
 
-int FunctionsOPPControl::generateUniquePVZId() {
+int FunctionsOPPControl::generateUniqueOPPId() {
     std::set<int> existingIds;
     std::ifstream file("pvz_data.txt");
 
-    // Считываем существующие ID из файла и добавляем их в множество
+    // РЎС‡РёС‚С‹РІР°РµРј СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ ID РёР· С„Р°Р№Р»Р° Рё РґРѕР±Р°РІР»СЏРµРј РёС… РІ РјРЅРѕР¶РµСЃС‚РІРѕ
     if (file.is_open()) {
         int id;
         std::string name;
@@ -41,10 +41,10 @@ int FunctionsOPPControl::generateUniquePVZId() {
         file.close();
     }
 
-    // Генерация нового уникального ID
+    // Р“РµРЅРµСЂР°С†РёСЏ РЅРѕРІРѕРіРѕ СѓРЅРёРєР°Р»СЊРЅРѕРіРѕ ID
     int newId;
     do {
-        newId = rand() % 10000 + 1;  // Генерация случайного числа от 1 до 10000
+        newId = rand() % 10000 + 1;  // Р“РµРЅРµСЂР°С†РёСЏ СЃР»СѓС‡Р°Р№РЅРѕРіРѕ С‡РёСЃР»Р° РѕС‚ 1 РґРѕ 10000
     } while (existingIds.find(newId) != existingIds.end());
 
     return newId;
