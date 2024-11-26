@@ -6,68 +6,67 @@
 
 using namespace FunctionsOPPControl;
 using namespace std;
+#define COMMON_ORDERS_FILE "all_orders.txt"
+
+Client::Client(int clientId, const std::string& firstName, const std::string& lastName)
+    : id(clientId), firstName(firstName), lastName(lastName) {}
+
+int Client::getId() const{
+    return id;
+}
+int Client::getOPPId() const{
+    return opp_id;
+}
+std::string Client::getFirstName() const {
+    return firstName;
+}
+std::string Client::getLastName() const {
+    return lastName;
+}
+std::vector<Order> Client::getOrders() const {
+    return orders;
+}
+
+void Client::setFirstName(const std::string& fName) {
+    firstName = fName;
+}
+void Client::setLastName(const std::string& lName) {
+    lastName = lName;
+}
+void Client::setId(int clientId) {
+    id = clientId;
+}
+int Client::setOPPId(int oppId) {
+    opp_id = oppId;
+}
+
+// Добавление заказа
+void Client::placeOrder(const Product& produc, int& qty) {
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+
+    Order newOrder(generateUniqueClientId,product,firstName+" "+lastName, std::put_time(&tm, "%d-%m-%Y %H:%M:%S"), "Сборка", qty);
+    orders.push_back(newOrder);
+    std::cout << "Заказ на " << productName << " успешно добавлен." << std::endl;
+
+    std::ofstream file(COMMON_ORDERS_FILE, std::ios::app);
+    if (file.is_open()) {
+        file << id << " " << opp_id " " << newOrder.getId << " " << newOrder.getClientName() << " " << newOrder.getProductName() << " " << newOrder.getStatus() << "\n";
+        file.close();
+        //TODO: !!Реализовать взаимодействие с SQL
+    }
+}
 
 // Геттеры для доступа к полям
 int Client::getClientId() const {
     return id;
 }
 
-std::string Client::getClientFirstName() const {
-    return firstName;
-}
-
-std::string Client::getClientLastName() const {
-    return lastName;
-}
-
-std::vector<Order> Client::getClientOrders() const {
-    return orders;
-}
-
-
-// Сеттеры для изменения полей
-void Client::setClientFirstName(const std::string& fName) {
-    firstName = fName;
-}
-
-void Client::setClientLastName(const std::string& lName) {
-    lastName = lName;
-}
-
-void Client::setClientId(int clientId) {
-    id = clientId;
-}
-
-
-// Функция для оформления заказа по названию товара
-void Client::placeOrder(const std::string& productName) {
-    //Order newOrder(productName);
-    //orders.push_back(newOrder);
-    std::cout << "Order placed: " << productName << std::endl;
-}
-
-// Функция для поиска заказа по ID
-void Client::searchOrder(int orderId) {
-    int key{};
-
-    // вызов меню для поиска товаров
-    searchMenu();
-    cin >> key;
-
-    // Объявление итератора до switch, чтобы он был доступен в каждом случае
-    std::vector<Order>::iterator it;
-
-    switch (key)
-    {
-    case 1:
-        std::cout << "Enter Order ID: ";
-        std::cin >> orderId;
-
-        it = std::find_if(orders.begin(), orders.end(),
-            [orderId](const Order& order) { return order.getOrderId() == orderId; });
-
-        if (it != orders.end()) {
-            std::cout << "Order found: " << it->getProductName() << std::endl;
+// Поиск заказа по статусу
+void Client::searchOrderByStatus(const std::string& status) {
+    for (const auto& order : orders) {
+        if (order.getStatus() == status) { // Предполагается наличие getStatus()
+            std::cout << "Заказ со статусом " << status << " найден: " << order.get_order_info() << std::endl;
         }
         else {
             std::cout << "Order with ID " << orderId << " not found." << std::endl;
@@ -134,20 +133,7 @@ void Client::pickOrderByParameters(const std::string& productName, const std::st
     }
 }
 
-// Удаление заказа по ID
-void Client::removeOrder(int orderId) {
-    auto it = std::remove_if(orders.begin(), orders.end(),
-        [orderId](const Order& order) { return order.getOrderId() == orderId; });
-    if (it != orders.end()) {
-        orders.erase(it, orders.end());
-        std::cout << "Order with ID " << orderId << " removed." << std::endl;
-    }
-    else {
-        std::cout << "Order with ID " << orderId << " not found." << std::endl;
-    }
-}
-
-// Функция для возврата заказа по причине
+// Возврат заказа
 Order Client::returnOrder(std::string reason) {
     if (orders.empty()) {
         std::cout << "No orders available for return." << std::endl;
@@ -183,9 +169,14 @@ void Client::printClientInfo() {
     std::cout << "Client ID: " << id << "\n"
         << "Name: " << firstName << " " << lastName << std::endl;
 }
+void Client::printOrders() {
+    for (int i = 0; i < orders.size; i++) {
+        std::cout << orders[i].getOrderInfo << std::endl;
+    }
+}
 
 // Функция для генерации уникального ID клиента
 int Client::generateUniqueClientId() {
-    static int idCounter = 1;
-    return idCounter++;
+    static int idCounter = orders.size();
+    return ++idCounter;
 }
