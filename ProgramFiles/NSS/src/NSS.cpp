@@ -6,9 +6,12 @@
 #include <vector>
 #include "../include/order.h"
 #include "../include/order_pickup_point.h"
+#include "../include/product.h"
+#include "../include/clients.h"
 
 
 using namespace FunctionsOPPControl;
+
 
 #pragma comment(lib, "Ws2_32.lib") // Подключение библиотеки WinSock
 #define PORT 8080 // Указываем порт
@@ -17,16 +20,11 @@ int main() {
     system("chcp 1251");
     setlocale(LC_ALL, "Russian");  // Установка локали для поддержки русского языка
 
-    int choice = 0;
+    int choice{};
 
     while (true) {
         // Главное меню
-        std::cout << "\n--- Добро пожаловать в ПВЗ! ---\n";
-        std::cout << "Выберите роль:\n";
-        std::cout << "1. Администратор (сотрудник ПВЗ)\n";
-        std::cout << "2. Клиент\n";
-        std::cout << "3. Выйти из программы\n";
-        std::cout << "Введите ваш выбор: ";
+        StartMenu();
         std::cin >> choice;
 
         switch (choice) {
@@ -40,21 +38,24 @@ int main() {
                 switch (adminChoice) {
                 case 1:
                     // Вызов функции просмотра всех заказов
+                    
                     break;
                 case 2:
                     // Вызов функции поиска заказа по ID
+                    
                     break;
                 case 3:
                     // Вызов функции добавления нового заказа
+
                     break;
                 case 4:
-                    FunctionsOPPControl::adminCreatePVZ();  // Создание нового ПВЗ
+                    adminCreateOPP();  // Создание нового ПВЗ
                     break;
                 case 5:
-                    FunctionsOPPControl::showAllPVZ();      // Показ всех ПВЗ
+                    showAllOPP();      // Показ всех ПВЗ
                     break;
                 case 6:
-                    FunctionsOPPControl::showAllClients();  // Показ всех клиентов
+                    showAllClients();  // Показ всех клиентов
                     break;
                 case 7:
                     std::cout << "Возврат в главное меню.\n";

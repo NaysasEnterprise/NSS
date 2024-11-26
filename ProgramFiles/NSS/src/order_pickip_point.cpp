@@ -109,14 +109,8 @@ void FunctionsOPPControl::showAllClients() {
     file.close();
 }
 
-
-// Конструктор
-PVZ::PVZ(int id, const std::string& name, double x, double y)
-    : id(id), name(name), coordX(x), coordY(y) {
-}
-
 // Геттеры
-int PVZ::getId() const {
+int OPP::getId() const {
     return id;
 }
 std::string PVZ::getName() const {
@@ -149,8 +143,8 @@ void FunctionsOPPControl::addPVZToFile(const PVZ& pvz) {
 }
 
 // Создание нового ПВЗ администратором
-void FunctionsOPPControl::adminCreatePVZ() {
-    int id = generateUniquePVZId();  // Автоматическое присвоение ID
+void FunctionsOPPControl::adminCreateOPP() {
+    int id = generateUniqueOPPId();  // Автоматическое присвоение ID
     double x, y;
     std::string name;
 
@@ -163,14 +157,14 @@ void FunctionsOPPControl::adminCreatePVZ() {
     std::cout << "Введите координату Y: ";
     std::cin >> y;
 
-    PVZ newPVZ(id, name, x, y);
-    addPVZToFile(newPVZ);
+    OPP newPVZ(id, name, x, y);
+    addOPPToFile(newPVZ);
     std::cout << "ПВЗ успешно создан и добавлен в файл.\n";
 }
 
 
 // Чтение всех ПВЗ из файла и вывод на экран
-void FunctionsOPPControl::showAllPVZ() {
+void FunctionsOPPControl::showAllOPP() {
     std::ifstream file("pvz_data.txt");
     if (!file.is_open()) {
         std::cerr << "Ошибка: Не удалось открыть файл.\n";

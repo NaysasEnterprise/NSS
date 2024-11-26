@@ -7,6 +7,15 @@
 using namespace FunctionsOPPControl;
 
 
+void FunctionsOPPControl::StartMenu() {
+    std::cout << "\n--- Добро пожаловать в ПВЗ! ---\n";
+    std::cout << "Выберите роль:\n";
+    std::cout << "1. Администратор (сотрудник ПВЗ)\n";
+    std::cout << "2. Клиент\n";
+    std::cout << "3. Выйти из программы\n";
+    std::cout << "Введите ваш выбор: ";
+}
+
 void FunctionsOPPControl::adminMenu() {
     std::cout << "\n--- Администратор ---\n";
     std::cout << "1. Посмотреть все заказы\n";
@@ -19,11 +28,13 @@ void FunctionsOPPControl::adminMenu() {
     std::cout << "Выберите опцию: ";
 }
 void FunctionsOPPControl::clientMenu() {
-    std::cout << "\n--- Клиент ---\n";
-    std::cout << "1. Посмотреть мои заказы\n";
-    std::cout << "2. Оформить новый заказ\n";
-    std::cout << "3. Найти заказ по ID\n";
-    std::cout << "4. Вернуться в главное меню\n";
+    std::cout << "===== Интерфейс клиента =====\n";
+    std::cout << "1. Просмотреть заказы\n";
+    std::cout << "2. Создать заказ\n";
+    std::cout << "3. Найти заказ\n";
+    std::cout << "4. Выйти\n";
+    std::cout << "Введите ваш выбор: ";
+       
 }
 
 int FunctionsOPPControl::generateUniqueOPPId() {

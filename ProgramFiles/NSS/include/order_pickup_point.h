@@ -87,6 +87,7 @@ public:
 namespace FunctionsOPPControl {
     void adminMenu();
     void clientMenu();
+    void StartMenu();
     bool clientExists(const std::string& firstName, const std::string& lastName);
     void addClient(const std::string& firstName, const std::string& lastName);
     void clientLoginOrRegister();
