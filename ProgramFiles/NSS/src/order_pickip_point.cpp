@@ -124,17 +124,17 @@ double PVZ::getCoordY() const {
 }
 
 // Вывод информации о ПВЗ
-void PVZ::printPVZInfo() const {
+void OPP::printOPPInfo() const {
     std::cout << "ПВЗ ID: " << id
         << ", Название: " << name
         << ", Координаты: (" << coordX << ", " << coordY << ")\n";
 }
 
-void FunctionsOPPControl::addPVZToFile(const PVZ& pvz) {
+void FunctionsOPPControl::addOPPToFile(const OPP& opp) {
     std::ofstream file("pvz_data.txt", std::ios::app);
     if (file.is_open()) {
-        file << pvz.getId() << " " << pvz.getName() << " "
-            << pvz.getCoordX() << " " << pvz.getCoordY() << "\n";
+        file << opp.getId() << " " << opp.getName() << " "
+            << opp.getCoordX() << " " << opp.getCoordY() << "\n";
         file.close();
     }
     else {

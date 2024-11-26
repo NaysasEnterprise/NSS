@@ -34,7 +34,6 @@ void FunctionsOPPControl::clientMenu() {
     std::cout << "3. Найти заказ\n";
     std::cout << "4. Выйти\n";
     std::cout << "Введите ваш выбор: ";
-       
 }
 
 int FunctionsOPPControl::generateUniqueOPPId() {
