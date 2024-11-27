@@ -1,79 +1,122 @@
 ﻿#include "../include/clients.h"
+#include "../include/order_pickup_point.h"
+#include "../include/order.h"
 #include <iostream>
 #include <algorithm>
 
+using namespace FunctionsOPPControl;
+using namespace std;
+
 // Геттеры для доступа к полям
-int Client::getId() const {
+int Client::getClientId() const {
     return id;
 }
 
-std::string Client::getFirstName() const {
+std::string Client::getClientFirstName() const {
     return firstName;
 }
 
-std::string Client::getLastName() const {
+std::string Client::getClientLastName() const {
     return lastName;
 }
 
-std::vector<Order> Client::getOrders() const {
+std::vector<Order> Client::getClientOrders() const {
     return orders;
 }
 
+
 // Сеттеры для изменения полей
-void Client::setFirstName(const std::string& fName) {
+void Client::setClientFirstName(const std::string& fName) {
     firstName = fName;
 }
 
-void Client::setLastName(const std::string& lName) {
+void Client::setClientLastName(const std::string& lName) {
     lastName = lName;
 }
 
-void Client::setId(int clientId) {
+void Client::setClientId(int clientId) {
     id = clientId;
 }
 
+
 // Функция для оформления заказа по названию товара
 void Client::placeOrder(const std::string& productName) {
-    Order newOrder(productName);
-    orders.push_back(newOrder);
+    //Order newOrder(productName);
+    //orders.push_back(newOrder);
     std::cout << "Order placed: " << productName << std::endl;
 }
 
 // Функция для поиска заказа по ID
-void Client::searchOrderByID(int orderId) {
-    auto it = std::find_if(orders.begin(), orders.end(),
-        [orderId](const Order& order) { return order.getOrderId() == orderId; });
-    if (it != orders.end()) {
-        std::cout << "Order found: " << it->getProductName() << std::endl;
+void Client::searchOrder(int orderId) {
+    int key{};
+
+    // вызов меню для поиска товаров
+    searchMenu();
+    cin >> key;
+
+    // Объявление итератора до switch, чтобы он был доступен в каждом случае
+    std::vector<Order>::iterator it;
+
+    switch (key)
+    {
+    case 1:
+        std::cout << "Enter Order ID: ";
+        std::cin >> orderId;
+
+        it = std::find_if(orders.begin(), orders.end(),
+            [orderId](const Order& order) { return order.getOrderId() == orderId; });
+
+        if (it != orders.end()) {
+            std::cout << "Order found: " << it->getProductName() << std::endl;
+        }
+        else {
+            std::cout << "Order with ID " << orderId << " not found." << std::endl;
+        }
+        break;
+
+    case 2: { // Поиск по полному имени клиента
+        std::cout << "Enter Client Full Name: ";
+        std::string fullName;
+        std::cin.ignore();
+        std::getline(std::cin, fullName);
+
+        it = std::find_if(orders.begin(), orders.end(),
+            [fullName](const Order& order) { return order.getClientName() == fullName; });
+
+        if (it != orders.end()) {
+            std::cout << "Order found for " << fullName << ": " << it->getProductName() << std::endl;
+        }
+        else {
+            std::cout << "Order for " << fullName << " not found." << std::endl;
+        }
+        break;
     }
-    else {
-        std::cout << "Order with ID " << orderId << " not found." << std::endl;
+    case 3: { // Поиск по статусу заказа
+        std::cout << "Enter Order Status: ";
+        std::string status;
+        std::cin.ignore();
+        std::getline(std::cin, status);
+
+        it = std::find_if(orders.begin(), orders.end(),
+            [status](const Order& order) { return order.getStatus() == status; });
+
+        if (it != orders.end()) {
+            std::cout << "Order with status " << status << ": " << it->getProductName() << std::endl;
+        }
+        else {
+            std::cout << "Order with status " << status << " not found." << std::endl;
+        }
+        break;
+    }
+    case 4: // Выход
+        std::cout << "Exiting search menu." << std::endl;
+        return;
+    default:
+        std::cout << "Invalid option. Please try again." << std::endl;
+        break;
     }
 }
 
-// Функция для поиска заказа по полному имени клиента
-void Client::searchOrderByFullName(const std::string& fullName) {
-    auto it = std::find_if(orders.begin(), orders.end(),
-        [fullName](const Order& order) { return order.getClientName() == fullName; });
-    if (it != orders.end()) {
-        std::cout << "Order found for " << fullName << ": " << it->getProductName() << std::endl;
-    }
-    else {
-        std::cout << "Order for " << fullName << " not found." << std::endl;
-    }
-}
-
-// Функция для поиска заказа по статусу
-void Client::searchOrderByStatus(const std::string& status) {
-    auto it = std::find_if(orders.begin(), orders.end(),
-        [status](const Order& order) { return order.getStatus() == status; });
-    if (it != orders.end()) {
-        std::cout << "Order with status " << status << ": " << it->getProductName() << std::endl;
-    }
-    else {
-        std::cout << "Order with status " << status << " not found." << std::endl;
-    }
-}
 
 // Функция для забора заказа по параметрам
 void Client::pickOrderByParameters(const std::string& productName, const std::string& clientName) {
@@ -108,7 +151,7 @@ void Client::removeOrder(int orderId) {
 Order Client::returnOrder(std::string reason) {
     if (orders.empty()) {
         std::cout << "No orders available for return." << std::endl;
-        return Order(""); // Вернуть пустой заказ, если список пуст
+        return Order(0, Product(0, "", 0.0, false), "", "", "", 0); // Вернуть пустой заказ с нулевыми значениями
     }
 
     std::cout << "Available orders for return:" << std::endl;
@@ -122,7 +165,7 @@ Order Client::returnOrder(std::string reason) {
 
     if (choice < 1 || choice > static_cast<int>(orders.size())) {
         std::cout << "Invalid choice. No order returned." << std::endl;
-        return Order(""); // Вернуть пустой заказ, если выбор некорректен
+        return Order(0, Product(0, "", 0.0, false), "", "", "", 0); // Вернуть пустой заказ, если выбор некорректен
     }
 
     Order returnedOrder = orders[choice - 1];
@@ -130,9 +173,6 @@ Order Client::returnOrder(std::string reason) {
 
     std::cout << "Order with ID " << returnedOrder.getOrderId()
         << " returned due to: " << reason << std::endl;
-
-    // Здесь можно сохранить информацию о возвращённых заказах в отдельный контейнер, если нужно
-    // Например: returnedOrders.push_back(returnedOrder);
 
     return returnedOrder; // Вернуть заказ
 }

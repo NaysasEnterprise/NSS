@@ -7,8 +7,14 @@ Order::Order(int orderId, const Product& prod, const std::string& client, const 
     : order_id(orderId), product(prod), client_name(client), order_date(date),
     status(orderStatus), quantity(qty), is_ready(false) {}
 
+// Геттеры
+int Order::getOrderId() const { return order_id; }
+std::string Order::getProductName() const { return product.getName(); }
+std::string Order::getClientName() const { return client_name; }
+std::string Order::getStatus() const { return status; }
+
 // Обновление статуса заказа
-void Order::updateStatus(const std::string& newStatus) {
+void Order::updateOrderStatus(const std::string& newStatus) {
     status = newStatus;
     is_ready = (status == "Готов");
 }
@@ -19,7 +25,7 @@ bool Order::isOrderReady() const {
 }
 
 // Получение количества товаров
-int Order::getQuantity() const {
+int Order::getOrderQuantity() const {
     return quantity;
 }
 
@@ -36,16 +42,5 @@ std::string Order::getOrderInfo() const {
     return oss.str();
 }
 
-// Геттеры
-int Order::getOrderId() const {
-    return order_id;
-}
-std::string Order::getProductName() const {
-    return product.getName();
-}
-std::string Order::getClientName() const {
-    return client_name;
-}
-std::string Order::getStatus() const {
-    return status;
+
 

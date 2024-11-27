@@ -24,7 +24,7 @@ int main() {
 
     while (true) {
         // Главное меню
-        StartMenu();
+        startMenu();
         std::cin >> choice;
 
         switch (choice) {
@@ -42,6 +42,10 @@ int main() {
                     break;
                 case 2:
                     // Вызов функции поиска заказа по ID
+                    std::cout << "Введите ID заказа для поиска: ";
+                    int orderId;
+                    std::cin >> orderId;
+                     // Поиск заказа по ID
                     
                     break;
                 case 3:

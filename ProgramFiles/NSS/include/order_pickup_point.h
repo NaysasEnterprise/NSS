@@ -15,79 +15,50 @@ private:
     std::vector<Client> clients; // Список клиентов
     std::vector<Order> inventory; // Заказы, находящиеся на ПВЗ
 
+    int id;
+    std::string name;
+    double coordX;
+    double coordY;
+
 public:
+    // Конструктор
+    OPP(int id, const std::string& name, double coordX, double coordY);
+
+    // Геттеры
+    int getId() const;
+    std::string getName() const;
+    double getCoordX() const;
+    double getCoordY() const;
+
     // Добавление клиента
-    void addClient(const std::string& firstName, const std::string& lastName) {
-        if (!clientExists(firstName, lastName)) {
-            clients.push_back({ firstName, lastName, {} });
-            std::cout << "Клиент " << firstName << " " << lastName << " успешно добавлен.\n";
-        }
-        else {
-            std::cout << "Клиент уже существует.\n";
-        }
-    }
+    void addClient(const std::string& firstName, const std::string& lastName);
 
     // Проверка наличия клиента
-    bool clientExists(const std::string& firstName, const std::string& lastName) const {
-        for (const auto& client : clients) {
-            if (client.firstName == firstName && client.lastName == lastName) {
-                return true;
-            }
-        }
-        return false;
-    }
+    bool clientExists(const std::string& firstName, const std::string& lastName) const;
 
     // Добавление заказа в инвентарь ПВЗ
-    void addOrderToInventory(const Order& order) {
-        inventory.push_back(order);
-        std::cout << "Заказ с ID " << order.getOrderId() << " добавлен в инвентарь ПВЗ.\n";
-    }
+    void addOrderToInventory(const Order& order);
 
     // Получение всех заказов клиента
-    std::vector<Order> getClientOrders(const std::string& firstName, const std::string& lastName) const {
-        for (const auto& client : clients) {
-            if (client.firstName == firstName && client.lastName == lastName) {
-                return client.orders;
-            }
-        }
-        std::cout << "Клиент не найден.\n";
-        return {};
-    }
+    std::vector<Order> getClientOrders(const std::string& firstName, const std::string& lastName) const;
 
     // Удаление заказа после получения
-    bool removeOrder(const std::string& orderID) {
-        for (auto it = inventory.begin(); it != inventory.end(); ++it) {
-            if (it->getOrderId() == orderID) {
-                inventory.erase(it);
-                std::cout << "Заказ с ID " << orderID << " удалён из инвентаря.\n";
-                return true;
-            }
-        }
-        std::cout << "Заказ с ID " << orderID << " не найден в инвентаре.\n";
-        return false;
-    }
+    bool removeOrder(const int& orderID);
 
     // Вывод информации о всех клиентах
-    void printClients() const {
-        std::cout << "Список клиентов:\n";
-        for (const auto& client : clients) {
-            std::cout << "- " << client.firstName << " " << client.lastName << "\n";
-        }
-    }
+    void printClients() const;
 
     // Вывод информации о всех заказах в ПВЗ
-    void printInventory() const {
-        std::cout << "Список заказов в ПВЗ:\n";
-        for (const auto& order : inventory) {
-            std::cout << "- Заказ ID: " << order.getOrderId() << "\n";
-        }
-    }
+    void printInventory() const;
+
+    void printOPPInfo() const;
 };
 
 namespace FunctionsOPPControl {
     void adminMenu();
     void clientMenu();
-    void StartMenu();
+    void startMenu();
+    void searchMenu();
     bool clientExists(const std::string& firstName, const std::string& lastName);
     void addClient(const std::string& firstName, const std::string& lastName);
     void clientLoginOrRegister();

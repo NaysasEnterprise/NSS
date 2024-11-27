@@ -6,8 +6,9 @@
 
 using namespace FunctionsOPPControl;
 
+// меню для выбора разных интерфейсов
 
-void FunctionsOPPControl::StartMenu() {
+void FunctionsOPPControl::startMenu() {
     std::cout << "\n--- Добро пожаловать в ПВЗ! ---\n";
     std::cout << "Выберите роль:\n";
     std::cout << "1. Администратор (сотрудник ПВЗ)\n";
@@ -32,6 +33,15 @@ void FunctionsOPPControl::clientMenu() {
     std::cout << "1. Просмотреть заказы\n";
     std::cout << "2. Создать заказ\n";
     std::cout << "3. Найти заказ\n";
+    std::cout << "4. Выйти\n";
+    std::cout << "Введите ваш выбор: ";
+}
+
+void FunctionsOPPControl::searchMenu() {
+    std::cout << "===== Поиск =====\n";
+    std::cout << "1. По ID\n";
+    std::cout << "2. По названию\n";
+    std::cout << "3. По статусу заказа\n";
     std::cout << "4. Выйти\n";
     std::cout << "Введите ваш выбор: ";
 }

@@ -18,9 +18,9 @@ public:
         const std::string& orderStatus, int qty);
 
     // Функции для работы с заказом
-    void updateStatus(const std::string& newStatus);
+    void updateOrderStatus(const std::string& newStatus);
     bool isOrderReady() const;
-    int getQuantity() const;
+    int getOrderQuantity() const;
     std::string getOrderInfo() const;
 
     // Геттеры

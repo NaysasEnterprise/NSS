@@ -8,6 +8,10 @@
 
 #define CLIENTS_FILE "clients.txt"                    
 
+// Конструктор
+OPP::OPP(int id, const std::string& name, double coordX, double coordY)
+    : id(id), name(name), coordX(coordX), coordY(coordY) {
+}
 
 // Функция для добавления нового клиента в базу данных
 void FunctionsOPPControl::clientLoginOrRegister() {
@@ -80,6 +84,13 @@ bool FunctionsOPPControl::clientExists(const std::string& firstName, const std::
     }
     return false;
 }
+
+// Добавление заказа в инвентарь ПВЗ
+void OPP::addOrderToInventory(const Order& order) {
+    inventory.push_back(order);
+    std::cout << "Заказ с ID " << order.getOrderId() << " добавлен в инвентарь ПВЗ.\n";
+}
+
 void FunctionsOPPControl::showAllClients() {
     std::ifstream file(CLIENTS_FILE);
     if (!file.is_open()) {
@@ -113,13 +124,13 @@ void FunctionsOPPControl::showAllClients() {
 int OPP::getId() const {
     return id;
 }
-std::string PVZ::getName() const {
+std::string OPP::getName() const {
     return name;
 }
-double PVZ::getCoordX() const {
+double OPP::getCoordX() const {
     return coordX;
 }
-double PVZ::getCoordY() const {
+double OPP::getCoordY() const {
     return coordY;
 }
 
@@ -131,11 +142,12 @@ void OPP::printOPPInfo() const {
 }
 
 void FunctionsOPPControl::addOPPToFile(const OPP& opp) {
-    std::ofstream file("pvz_data.txt", std::ios::app);
+    std::ofstream file("pvz_data.txt", std::ios::app);  // Открытие файла в режиме добавления
     if (file.is_open()) {
+        // Используем геттеры из класса OPP
         file << opp.getId() << " " << opp.getName() << " "
             << opp.getCoordX() << " " << opp.getCoordY() << "\n";
-        file.close();
+        file.close();  // Закрытие файла после записи
     }
     else {
         std::cerr << "Ошибка: Не удалось открыть файл для записи.\n";

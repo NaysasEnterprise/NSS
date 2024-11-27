@@ -17,23 +17,21 @@ public:
         : id(clientId), firstName(firstName), lastName(lastName) {}
 
     // Геттеры для доступа к полям
-    int getId() const;
-    std::string getFirstName() const;
-    std::string getLastName() const;
-    std::vector<Order> getOrders() const;
+    int getClientId() const;
+    std::string getClientFirstName() const;
+    std::string getClientLastName() const;
+    std::vector<Order> getClientOrders() const;
 
     // Сеттеры для изменения полей
-    void setFirstName(const std::string& fName);
-    void setLastName(const std::string& lName);
-    void setId(int clientId);
+    void setClientFirstName(const std::string& fName);
+    void setClientLastName(const std::string& lName);
+    void setClientId(int clientId);
 
     // Заголовок функции для оформления заказа по названию товара
     void placeOrder(const std::string& productName);
 
     // Заголовок функции для поиска заказа по параметрам (ID, ФИО, статус заказа)
-    void searchOrderByID(int id);
-    void searchOrderByFullName(const std::string& fullName); //думаю объединим позже в одну функцию
-    void searchOrderByStatus(const std::string& status);
+    void searchOrder(int id);
 
     // Заголовок функции для забора заказа (поиск товара по параметрам)
     void pickOrderByParameters(const std::string& productName, const std::string& clientName);

@@ -7,7 +7,7 @@
 add_executable (NSS 
     "NSS/src/NSS.cpp"
     "NSS/socket/socket.cpp"
-    "NSS/namespace/functions.cpp"
+    "NSS/namespace/functionsOppControl.cpp"
     "NSS/src/product.cpp"
     "NSS/src/order_pickip_point.cpp"
   )
