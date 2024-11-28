@@ -1,4 +1,4 @@
-#include "../include/order_pickup_point.h"
+п»ї#include "../include/order_pickup_point.h"
 #include <string>
 #include <vector>
 #include "../include/order.h"
@@ -6,23 +6,27 @@
 #include <fstream>
 #include <sstream>
 
-#define CLIENTS_FILE "clients.txt" // Имя файла, где хранятся клиенты
+#define CLIENTS_FILE "clients.txt"                    
 
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+OPP::OPP(int id, const std::string& name, double coordX, double coordY)
+    : id(id), name(name), coordX(coordX), coordY(coordY) {
+}
 
-// Функция для добавления нового клиента в базу данных
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕРіРѕ РєР»РёРµРЅС‚Р° РІ Р±Р°Р·Сѓ РґР°РЅРЅС‹С…
 void FunctionsOPPControl::clientLoginOrRegister() {
     std::string firstName, lastName;
-    std::cout << "Введите имя: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ РёРјСЏ: ";
     std::cin >> firstName;
-    std::cout << "Введите фамилию: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ С„Р°РјРёР»РёСЋ: ";
     std::cin >> lastName;
 
-    // Проверка, существует ли клиент в базе данных
+    // РџСЂРѕРІРµСЂРєР°, СЃСѓС‰РµСЃС‚РІСѓРµС‚ Р»Рё РєР»РёРµРЅС‚ РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…
     if (clientExists(firstName, lastName)) {
-        std::cout << "Добро пожаловать обратно, " << firstName << " " << lastName << "!" << std::endl;
+        std::cout << "Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ РѕР±СЂР°С‚РЅРѕ, " << firstName << " " << lastName << "!" << std::endl;
     }
     else {
-        std::cout << "Клиент не найден. Создаем новый аккаунт." << std::endl;
+        std::cout << "РљР»РёРµРЅС‚ РЅРµ РЅР°Р№РґРµРЅ. РЎРѕР·РґР°РµРј РЅРѕРІС‹Р№ Р°РєРєР°СѓРЅС‚." << std::endl;
         addClient(firstName, lastName);
     }
 }
@@ -30,7 +34,7 @@ void FunctionsOPPControl::clientLoginOrRegister() {
 int FunctionsOPPControl::generateUniqueClientId() {
     static int lastId = 0;
 
-    // Чтение последнего ID из файла
+    // Р§С‚РµРЅРёРµ РїРѕСЃР»РµРґРЅРµРіРѕ ID РёР· С„Р°Р№Р»Р°
     std::ifstream file(CLIENTS_FILE);
     if (file.is_open()) {
         std::string line;
@@ -50,21 +54,21 @@ void FunctionsOPPControl::addClient(const std::string& firstName, const std::str
     std::ofstream file(CLIENTS_FILE, std::ios::app);
 
     if (!file.is_open()) {
-        std::cerr << "Не удалось открыть файл для записи клиента." << std::endl;
+        std::cerr << "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» РґР»СЏ Р·Р°РїРёСЃРё РєР»РёРµРЅС‚Р°." << std::endl;
         return;
     }
 
-    // Добавление клиента с пустым списком заказов
+    // Р”РѕР±Р°РІР»РµРЅРёРµ РєР»РёРµРЅС‚Р° СЃ РїСѓСЃС‚С‹Рј СЃРїРёСЃРєРѕРј Р·Р°РєР°Р·РѕРІ
     file << clientId << " " << lastName << " " << firstName << " 0 []" << std::endl;
     file.close();
 
-    std::cout << "Клиент " << firstName << " " << lastName << " успешно добавлен с ID " << clientId << "." << std::endl;
+    std::cout << "РљР»РёРµРЅС‚ " << firstName << " " << lastName << " СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІР»РµРЅ СЃ ID " << clientId << "." << std::endl;
 }
 
 bool FunctionsOPPControl::clientExists(const std::string& firstName, const std::string& lastName) {
     std::ifstream file(CLIENTS_FILE);
     if (!file.is_open()) {
-        std::cerr << "Не удалось открыть файл с клиентами." << std::endl;
+        std::cerr << "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» СЃ РєР»РёРµРЅС‚Р°РјРё." << std::endl;
         return false;
     }
 
@@ -80,109 +84,111 @@ bool FunctionsOPPControl::clientExists(const std::string& firstName, const std::
     }
     return false;
 }
+
+// Р”РѕР±Р°РІР»РµРЅРёРµ Р·Р°РєР°Р·Р° РІ РёРЅРІРµРЅС‚Р°СЂСЊ РџР’Р—
+void OPP::addOrderToInventory(const Order& order) {
+    inventory.push_back(order);
+    std::cout << "Р—Р°РєР°Р· СЃ ID " << order.getOrderId() << " РґРѕР±Р°РІР»РµРЅ РІ РёРЅРІРµРЅС‚Р°СЂСЊ РџР’Р—.\n";
+}
+
 void FunctionsOPPControl::showAllClients() {
     std::ifstream file(CLIENTS_FILE);
     if (!file.is_open()) {
-        std::cerr << "Не удалось открыть файл с клиентами." << std::endl;
+        std::cerr << "РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» СЃ РєР»РёРµРЅС‚Р°РјРё." << std::endl;
         return;
     }
 
     std::string line;
-    std::cout << "\n--- Список клиентов ---\n";
+    std::cout << "\n--- РЎРїРёСЃРѕРє РєР»РёРµРЅС‚РѕРІ ---\n";
     while (std::getline(file, line)) {
         std::istringstream iss(line);
         int id, numOrders;
         std::string firstName, lastName;
         std::string orders;
 
-        // Чтение данных из строки
+        // Р§С‚РµРЅРёРµ РґР°РЅРЅС‹С… РёР· СЃС‚СЂРѕРєРё
         if (iss >> id >> lastName >> firstName >> numOrders) {
-            // Чтение оставшейся части строки как список заказов
+            // Р§С‚РµРЅРёРµ РѕСЃС‚Р°РІС€РµР№СЃСЏ С‡Р°СЃС‚Рё СЃС‚СЂРѕРєРё РєР°Рє СЃРїРёСЃРѕРє Р·Р°РєР°Р·РѕРІ
             std::getline(iss, orders);
             std::cout << "ID: " << id << "\n"
-                << "Фамилия: " << lastName << "\n"
-                << "Имя: " << firstName << "\n"
-                << "Количество заказов: " << numOrders << "\n"
-                << "Заказы: " << orders << "\n\n";
+                << "Р¤Р°РјРёР»РёСЏ: " << lastName << "\n"
+                << "РРјСЏ: " << firstName << "\n"
+                << "РљРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РєР°Р·РѕРІ: " << numOrders << "\n"
+                << "Р—Р°РєР°Р·С‹: " << orders << "\n\n";
         }
     }
     file.close();
 }
 
-
-// Конструктор
-PVZ::PVZ(int id, const std::string& name, double x, double y)
-    : id(id), name(name), coordX(x), coordY(y) {}
-
-// Геттеры
-int PVZ::getId() const {
+// Р“РµС‚С‚РµСЂС‹
+int OPP::getId() const {
     return id;
 }
-std::string PVZ::getName() const {
+std::string OPP::getName() const {
     return name;
 }
-double PVZ::getCoordX() const {
+double OPP::getCoordX() const {
     return coordX;
 }
-double PVZ::getCoordY() const {
+double OPP::getCoordY() const {
     return coordY;
 }
 
-// Вывод информации о ПВЗ
-void PVZ::printPVZInfo() const {
-    std::cout << "ПВЗ ID: " << id
-        << ", Название: " << name
-        << ", Координаты: (" << coordX << ", " << coordY << ")\n";
+// Р’С‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РџР’Р—
+void OPP::printOPPInfo() const {
+    std::cout << "РџР’Р— ID: " << id
+        << ", РќР°Р·РІР°РЅРёРµ: " << name
+        << ", РљРѕРѕСЂРґРёРЅР°С‚С‹: (" << coordX << ", " << coordY << ")\n";
 }
 
-void FunctionsOPPControl::addPVZToFile(const PVZ& pvz) {
-    std::ofstream file("pvz_data.txt", std::ios::app);
+void FunctionsOPPControl::addOPPToFile(const OPP& opp) {
+    std::ofstream file("pvz_data.txt", std::ios::app);  // РћС‚РєСЂС‹С‚РёРµ С„Р°Р№Р»Р° РІ СЂРµР¶РёРјРµ РґРѕР±Р°РІР»РµРЅРёСЏ
     if (file.is_open()) {
-        file << pvz.getId() << " " << pvz.getName() << " "
-            << pvz.getCoordX() << " " << pvz.getCoordY() << "\n";
-        file.close();
+        // РСЃРїРѕР»СЊР·СѓРµРј РіРµС‚С‚РµСЂС‹ РёР· РєР»Р°СЃСЃР° OPP
+        file << opp.getId() << " " << opp.getName() << " "
+            << opp.getCoordX() << " " << opp.getCoordY() << "\n";
+        file.close();  // Р—Р°РєСЂС‹С‚РёРµ С„Р°Р№Р»Р° РїРѕСЃР»Рµ Р·Р°РїРёСЃРё
     }
     else {
-        std::cerr << "Ошибка: Не удалось открыть файл для записи.\n";
+        std::cerr << "РћС€РёР±РєР°: РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» РґР»СЏ Р·Р°РїРёСЃРё.\n";
     }
 }
 
-// Создание нового ПВЗ администратором
-void FunctionsOPPControl::adminCreatePVZ() {
-    int id = generateUniquePVZId();  // Автоматическое присвоение ID
+// РЎРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ РџР’Р— Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕРј
+void FunctionsOPPControl::adminCreateOPP() {
+    int id = generateUniqueOPPId();  // РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ РїСЂРёСЃРІРѕРµРЅРёРµ ID
     double x, y;
     std::string name;
 
-    std::cout << "Создание нового ПВЗ\n";
-    std::cout << "ID ПВЗ: " << id << " (автоматически присвоен)\n";
-    std::cout << "Введите название ПВЗ: ";
+    std::cout << "РЎРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ РџР’Р—\n";
+    std::cout << "ID РџР’Р—: " << id << " (Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїСЂРёСЃРІРѕРµРЅ)\n";
+    std::cout << "Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РџР’Р—: ";
     std::cin >> name;
-    std::cout << "Введите координату X: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ РєРѕРѕСЂРґРёРЅР°С‚Сѓ X: ";
     std::cin >> x;
-    std::cout << "Введите координату Y: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ РєРѕРѕСЂРґРёРЅР°С‚Сѓ Y: ";
     std::cin >> y;
 
-    PVZ newPVZ(id, name, x, y);
-    addPVZToFile(newPVZ);
-    std::cout << "ПВЗ успешно создан и добавлен в файл.\n";
+    OPP newPVZ(id, name, x, y);
+    addOPPToFile(newPVZ);
+    std::cout << "РџР’Р— СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅ Рё РґРѕР±Р°РІР»РµРЅ РІ С„Р°Р№Р».\n";
 }
 
 
-// Чтение всех ПВЗ из файла и вывод на экран
-void FunctionsOPPControl::showAllPVZ() {
+// Р§С‚РµРЅРёРµ РІСЃРµС… РџР’Р— РёР· С„Р°Р№Р»Р° Рё РІС‹РІРѕРґ РЅР° СЌРєСЂР°РЅ
+void FunctionsOPPControl::showAllOPP() {
     std::ifstream file("pvz_data.txt");
     if (!file.is_open()) {
-        std::cerr << "Ошибка: Не удалось открыть файл.\n";
+        std::cerr << "РћС€РёР±РєР°: РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р».\n";
         return;
     }
 
-    std::cout << "\nСписок всех ПВЗ:\n";
+    std::cout << "\nРЎРїРёСЃРѕРє РІСЃРµС… РџР’Р—:\n";
     int id, x, y;
     std::string name;
     while (file >> id >> name >> x >> y) {
-        std::cout << "ID: " << id << ", Название: " << name
-            << ", Координаты: (" << x << ", " << y << ")\n";
+        std::cout << "ID: " << id << ", РќР°Р·РІР°РЅРёРµ: " << name
+            << ", РљРѕРѕСЂРґРёРЅР°С‚С‹: (" << x << ", " << y << ")\n";
     }
     file.close();
 }
-

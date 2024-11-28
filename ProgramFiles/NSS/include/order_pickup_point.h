@@ -4,15 +4,26 @@
 #include <iostream>
 #pragma once
 
-class PVZ {
+class OPP {
 private:
-    int id;                  // Уникальный ID ПВЗ
-    std::string name;        // Название ПВЗ
-    double coordX, coordY;   // Координаты ПВЗ
+    // структура здесь в приватном поле для лучшей связности логических элементов
+    struct Client {
+        std::string firstName;
+        std::string lastName;
+        std::vector<Order> orders;
+    };
+
+    std::vector<Client> clients; // Список клиентов
+    std::vector<Order> inventory; // Заказы, находящиеся на ПВЗ
+
+    int id;
+    std::string name;
+    double coordX;
+    double coordY;
 
 public:
-    // Конструктор ПВЗ
-    PVZ(int id, const std::string& name, double x, double y);
+    // Конструктор
+    OPP(int id, const std::string& name, double coordX, double coordY);
 
     // Геттеры
     int getId() const;
@@ -20,13 +31,35 @@ public:
     double getCoordX() const;
     double getCoordY() const;
 
-    // Функция для вывода информации о ПВЗ
-    void printPVZInfo() const;
+    // Добавление клиента
+    void addClient(const std::string& firstName, const std::string& lastName);
+
+    // Проверка наличия клиента
+    bool clientExists(const std::string& firstName, const std::string& lastName) const;
+
+    // Добавление заказа в инвентарь ПВЗ
+    void addOrderToInventory(const Order& order);
+
+    // Получение всех заказов клиента
+    std::vector<Order> getClientOrders(const std::string& firstName, const std::string& lastName) const;
+
+    // Удаление заказа после получения
+    bool removeOrder(const int& orderID);
+
+    // Вывод информации о всех клиентах
+    void printClients() const;
+
+    // Вывод информации о всех заказах в ПВЗ
+    void printInventory() const;
+
+    void printOPPInfo() const;
 };
 
 namespace FunctionsOPPControl {
     void adminMenu();
     void clientMenu();
+    void startMenu();
+    void searchMenu();
     bool clientExists(const std::string& firstName, const std::string& lastName);
     void addClient(const std::string& firstName, const std::string& lastName);
     void clientLoginOrRegister();
@@ -36,8 +69,8 @@ namespace FunctionsOPPControl {
     bool clientExists(const std::string& firstName, const std::string& lastName);
     void showAllClients();
 
-    int generateUniquePVZId();
-    void adminCreatePVZ();      // Создание ПВЗ администратором
-    void showAllPVZ();          // Просмотр всех ПВЗ
-    void addPVZToFile(const PVZ& pvz);
+    int generateUniqueOPPId();
+    void adminCreateOPP();      // Создание ПВЗ администратором
+    void showAllOPP();          // Просмотр всех ПВЗ
+    void addOPPToFile(const OPP& opp);
 }
