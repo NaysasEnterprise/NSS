@@ -10,6 +10,8 @@ add_executable (NSS
     "NSS/namespace/functionsOppControl.cpp"
     "NSS/src/product.cpp"
     "NSS/src/order_pickip_point.cpp"
+    "NSS/src/order.cpp"
+    "NSS/src/clients.cpp"
   )
 
 # Client executable (предположим, что main() определена в clients.cpp)
