@@ -1,4 +1,0 @@
-C:/Users/gslc209/Documents/ProjectNNTU/NSS/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/gslc209/Documents/ProjectNNTU/NSS/build/CMakeFiles/ZERO_CHECK.dir
-C:/Users/gslc209/Documents/ProjectNNTU/NSS/build/ProgramFiles/CMakeFiles/NSS.dir
-C:/Users/gslc209/Documents/ProjectNNTU/NSS/build/ProgramFiles/CMakeFiles/Client.dir

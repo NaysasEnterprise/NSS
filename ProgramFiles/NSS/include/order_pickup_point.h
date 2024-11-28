@@ -6,6 +6,7 @@
 
 class OPP {
 private:
+    // структура здесь в приватном поле для лучшей связности логических элементов
     struct Client {
         std::string firstName;
         std::string lastName;
