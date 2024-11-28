@@ -1,13 +1,15 @@
 ﻿#include "../include/product.h"
 #include <random>
 
+using namespace std;
+
 // Конструктор
 Product::Product(int productId, const std::string& productName, double productPrice, bool availability)
     : id(productId), name(productName), price(productPrice), isAvailable(availability) {}
 
 // Геттеры
 int Product::getId() const { return id; }
-std::string Product::getName() const { return name; }
+string Product::getName() const { return name; }
 double Product::getPrice() const { return price; }
 bool Product::getAvailability() const { return isAvailable; }
 
@@ -18,7 +20,7 @@ void Product::setPrice(double productPrice) { price = productPrice; }
 void Product::setAvailability(bool availability) { isAvailable = availability; }
 
 // Перегрузка оператора вывода
-std::ostream& operator<<(std::ostream& os, const Product& product) {
+ostream& operator<<(ostream& os, const Product& product) {
     os << "ID товара: " << product.id << "\n"
         << "Название: " << product.name << "\n"
         << "Цена: " << product.price << "\n"
@@ -27,12 +29,12 @@ std::ostream& operator<<(std::ostream& os, const Product& product) {
 }
 
 // Генерация списка продуктов
-std::vector<Product> Product::generateProducts(int count) {
-    std::vector<Product> products;
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<> priceDistrib(10.0, 500.0);
-    std::uniform_int_distribution<> availabilityDistrib(0, 1);
+vector<Product> Product::generateProducts(int count) {
+    vector<Product> products;
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_real_distribution<> priceDistrib(10.0, 500.0);
+    uniform_int_distribution<> availabilityDistrib(0, 1);
 
     for (int i = 1; i <= count; ++i) {
         double price = priceDistrib(gen);
