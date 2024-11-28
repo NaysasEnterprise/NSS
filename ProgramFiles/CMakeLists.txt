@@ -12,12 +12,16 @@ add_executable (NSS
     "NSS/src/order_pickip_point.cpp"
     "NSS/src/order.cpp"
     "NSS/src/clients.cpp"
-  )
+   "NSS/server/sqlite3.h" "NSS/server/sqlite3.c")
 
 # Client executable (предположим, что main() определена в clients.cpp)
 add_executable (Client 
     "NSS/src/clients.cpp"
-  )
+   "NSS/server/sqlite3.h" "NSS/server/sqlite3.c")
+
+add_executable (Server 
+    "NSS/server/release.cpp"
+   "NSS/server/sqlite3.h" "NSS/server/sqlite3.c")
 
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
