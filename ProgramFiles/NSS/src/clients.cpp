@@ -179,7 +179,7 @@ Order Client::returnOrder(std::string reason) {
 
 
 // Функция для вывода информации о клиенте
-void Client::printClientInfo() {
+void Client::printClientInfo() const {
     std::cout << "Client ID: " << id << "\n"
         << "Name: " << firstName << " " << lastName << std::endl;
 }

@@ -41,7 +41,9 @@ public:
 
     Order returnOrder(std::string reason);
 
-    void printClientInfo();
+    void printClientInfo() const;
 
     int generateUniqueClientId();
+    
+    int main();
 };

@@ -1,7 +1,5 @@
-п»ї// NSS.cpp: РѕРїСЂРµРґРµР»СЏРµС‚ С‚РѕС‡РєСѓ РІС…РѕРґР° РґР»СЏ РїСЂРёР»РѕР¶РµРЅРёСЏ.
+// NSS.cpp: определяет точку входа для приложения.
 #include <iostream>
-#include <winsock2.h> // РћСЃРЅРѕРІРЅРѕР№ Р·Р°РіРѕР»РѕРІРѕРє РґР»СЏ WinSock
-#include <ws2tcpip.h> // Р”Р»СЏ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… С„СѓРЅРєС†РёР№ СЃРѕРєРµС‚РѕРІ (РЅР°РїСЂРёРјРµСЂ, getaddrinfo)
 #include <string>
 #include <vector>
 #include "../include/order.h"
@@ -9,27 +7,22 @@
 #include "../include/product.h"
 #include "../include/clients.h"
 
-
 using namespace FunctionsOPPControl;
-
-
-#pragma comment(lib, "Ws2_32.lib") // РџРѕРґРєР»СЋС‡РµРЅРёРµ Р±РёР±Р»РёРѕС‚РµРєРё WinSock
-#define PORT 8080 // РЈРєР°Р·С‹РІР°РµРј РїРѕСЂС‚
 
 int main() {
     system("chcp 1251");
-    setlocale(LC_ALL, "Russian");  // РЈСЃС‚Р°РЅРѕРІРєР° Р»РѕРєР°Р»Рё РґР»СЏ РїРѕРґРґРµСЂР¶РєРё СЂСѓСЃСЃРєРѕРіРѕ СЏР·С‹РєР°
+    setlocale(LC_ALL, "Russian");  // Установка локали для поддержки русского языка
 
     int choice{};
 
     while (true) {
-        // Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ
+        // Главное меню
         startMenu();
         std::cin >> choice;
 
         switch (choice) {
         case 1: {
-            // РњРµРЅСЋ РґР»СЏ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°
+            // Меню для администратора
             int adminChoice;
             while (true) {
                 FunctionsOPPControl::adminMenu();
@@ -37,167 +30,80 @@ int main() {
 
                 switch (adminChoice) {
                 case 1:
-                    // Р’С‹Р·РѕРІ С„СѓРЅРєС†РёРё РїСЂРѕСЃРјРѕС‚СЂР° РІСЃРµС… Р·Р°РєР°Р·РѕРІ
-                    
+                    // Вызов функции просмотра всех заказов
+
                     break;
                 case 2:
-                    // Р’С‹Р·РѕРІ С„СѓРЅРєС†РёРё РїРѕРёСЃРєР° Р·Р°РєР°Р·Р° РїРѕ ID
-                    std::cout << "Р’РІРµРґРёС‚Рµ ID Р·Р°РєР°Р·Р° РґР»СЏ РїРѕРёСЃРєР°: ";
+                    // Вызов функции поиска заказа по ID
+                    std::cout << "Введите ID заказа для поиска: ";
                     int orderId;
                     std::cin >> orderId;
-                     // РџРѕРёСЃРє Р·Р°РєР°Р·Р° РїРѕ ID
-                    
+                     // Поиск заказа по ID
+
                     break;
                 case 3:
-                    // Р’С‹Р·РѕРІ С„СѓРЅРєС†РёРё РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕРіРѕ Р·Р°РєР°Р·Р°
+                    // Вызов функции добавления нового заказа
 
                     break;
                 case 4:
-                    adminCreateOPP();  // РЎРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ РџР’Р—
+                    adminCreateOPP();  // Создание нового ПВЗ
                     break;
                 case 5:
-                    showAllOPP();      // РџРѕРєР°Р· РІСЃРµС… РџР’Р—
+                    showAllOPP();      // Показ всех ПВЗ
                     break;
                 case 6:
-                    showAllClients();  // РџРѕРєР°Р· РІСЃРµС… РєР»РёРµРЅС‚РѕРІ
+                    showAllClients();  // Показ всех клиентов
                     break;
                 case 7:
-                    std::cout << "Р’РѕР·РІСЂР°С‚ РІ РіР»Р°РІРЅРѕРµ РјРµРЅСЋ.\n";
-                    goto mainMenu;  // Р’РѕР·РІСЂР°С‚ РІ РіР»Р°РІРЅРѕРµ РјРµРЅСЋ
+                    std::cout << "Возврат в главное меню.\n";
+                    goto mainMenu;  // Возврат в главное меню
                 default:
-                    std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ. РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РїРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°.\n";
+                    std::cout << "Неверный выбор. Пожалуйста, попробуйте снова.\n";
                 }
             }
             break;
         }
 
         case 2: {
-            clientLoginOrRegister(); // Р’С…РѕРґ РёР»Рё СЂРµРіРёСЃС‚СЂР°С†РёСЏ РєР»РёРµРЅС‚Р°
+            clientLoginOrRegister(); // Вход или регистрация клиента
 
             int clientChoice;
             while (true) {
                 clientMenu();
-                std::cout << "Р’РІРµРґРёС‚Рµ РІР°С€ РІС‹Р±РѕСЂ: ";
+                std::cout << "Введите ваш выбор: ";
                 std::cin >> clientChoice;
 
                 switch (clientChoice) {
                 case 1:
-                    std::cout << "РџРѕРєР°Р·Р°С‚СЊ РјРѕРё Р·Р°РєР°Р·С‹ (Р·РґРµСЃСЊ Р±СѓРґРµС‚ Р»РѕРіРёРєР°)\n";
+                    std::cout << "Показать мои заказы (здесь будет логика)\n";
                     break;
                 case 2:
-                    std::cout << "РћС„РѕСЂРјР»РµРЅРёРµ РЅРѕРІРѕРіРѕ Р·Р°РєР°Р·Р° (Р·РґРµСЃСЊ Р±СѓРґРµС‚ Р»РѕРіРёРєР°)\n";
-                    
+                    std::cout << "Оформление нового заказа (здесь будет логика)\n";
+
                     break;
                 case 3:
-                    std::cout << "Р’РІРµРґРёС‚Рµ ID Р·Р°РєР°Р·Р° РґР»СЏ РїРѕРёСЃРєР°: ";
-                    // Р›РѕРіРёРєР° РґР»СЏ РїРѕРёСЃРєР° Р·Р°РєР°Р·Р° РїРѕ ID
+                    std::cout << "Введите ID заказа для поиска: ";
+                    // Логика для поиска заказа по ID
                     break;
                 case 4:
-                    std::cout << "Р’РѕР·РІСЂР°С‰РµРЅРёРµ РІ РіР»Р°РІРЅРѕРµ РјРµРЅСЋ...\n";
-                    goto mainMenu;  // Р’РѕР·РІСЂР°С‚ РІ РіР»Р°РІРЅРѕРµ РјРµРЅСЋ
+                    std::cout << "Возвращение в главное меню...\n";
+                    goto mainMenu;  // Возврат в главное меню
                 default:
-                    std::cout << "РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РІС‹Р±РѕСЂ. РџРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°.\n";
+                    std::cout << "Некорректный выбор. Попробуйте снова.\n";
                 }
             }
             break;
         }
 
         case 3:
-            std::cout << "Р’С‹С…РѕРґ РёР· РїСЂРѕРіСЂР°РјРјС‹...\n";
-            return 0;  // Р—Р°РІРµСЂС€РµРЅРёРµ РїСЂРѕРіСЂР°РјРјС‹
+            std::cout << "Выход из программы...\n";
+            return 0;  // Завершение программы
 
         default:
-            std::cout << "РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РІС‹Р±РѕСЂ. РџРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°.\n";
+            std::cout << "Некорректный выбор. Попробуйте снова.\n";
         }
 
-    mainMenu:;  // РњРµС‚РєР° РґР»СЏ РІРѕР·РІСЂР°С‚Р° РІ РіР»Р°РІРЅРѕРµ РјРµРЅСЋ
+    mainMenu:;  // Метка для возврата в главное меню
     }
-
     return 0;
-}
-#define BUFFER_SIZE 1024
-
-/*int main() {
-    setlocale(LC_ALL, "Russian");
-    WSADATA wsaData;
-    SOCKET server_fd, new_socket;
-    struct sockaddr_in address;
-    int opt = 1;
-    int addrlen = sizeof(address);
-    char buffer[BUFFER_SIZE] = { 0 };
-    const char* response = "fkfkfkkfkf";
-
-    // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ WinSock
-    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
-        std::cerr << "РћС€РёР±РєР° РёРЅРёС†РёР°Р»РёР·Р°С†РёРё WinSock: " << WSAGetLastError() << std::endl;
-        return 1;
-    }
-
-    // РЎРѕР·РґР°РЅРёРµ СЃРµСЂРІРµСЂРЅРѕРіРѕ СЃРѕРєРµС‚Р°
-    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET) {
-        std::cerr << "РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ СЃРѕРєРµС‚Р°: " << WSAGetLastError() << std::endl;
-        WSACleanup();
-        return 1;
-    }
-
-    // РќР°СЃС‚СЂРѕР№РєР° СЃРѕРєРµС‚Р° (SO_REUSEADDR РґР»СЏ РїРѕРІС‚РѕСЂРЅРѕРіРѕ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ Р°РґСЂРµСЃР°)
-    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, (char*)&opt, sizeof(opt)) == SOCKET_ERROR) {
-        std::cerr << "РћС€РёР±РєР° СѓСЃС‚Р°РЅРѕРІРєРё РїР°СЂР°РјРµС‚СЂРѕРІ СЃРѕРєРµС‚Р°: " << WSAGetLastError() << std::endl;
-        closesocket(server_fd);
-        WSACleanup();
-        return 1;
-    }
-
-    // РќР°СЃС‚СЂРѕР№РєР° Р°РґСЂРµСЃР° СЃРµСЂРІРµСЂР°
-    address.sin_family = AF_INET;
-    address.sin_addr.s_addr = INADDR_ANY;
-    address.sin_port = htons(PORT);
-
-    // РџСЂРёРІСЏР·РєР° СЃРѕРєРµС‚Р° Рє Р°РґСЂРµСЃСѓ
-    if (bind(server_fd, (struct sockaddr*)&address, sizeof(address)) == SOCKET_ERROR) {
-        std::cerr << "РћС€РёР±РєР° РїСЂРёРІСЏР·РєРё СЃРѕРєРµС‚Р°: " << WSAGetLastError() << std::endl;
-        closesocket(server_fd);
-        WSACleanup();
-        return 1;
-    }
-
-    // РџСЂРѕСЃР»СѓС€РёРІР°РЅРёРµ РІС…РѕРґСЏС‰РёС… СЃРѕРµРґРёРЅРµРЅРёР№
-    if (listen(server_fd, 3) == SOCKET_ERROR) {
-        std::cerr << "РћС€РёР±РєР° РїСЂРѕСЃР»СѓС€РёРІР°РЅРёСЏ: " << WSAGetLastError() << std::endl;
-        closesocket(server_fd);
-        WSACleanup();
-        return 1;
-    }
-
-    std::cout << "РћР¶РёРґР°РЅРёРµ РїРѕРґРєР»СЋС‡РµРЅРёСЏ..." << std::endl;
-
-    // РџСЂРёРЅСЏС‚РёРµ РЅРѕРІРѕРіРѕ РїРѕРґРєР»СЋС‡РµРЅРёСЏ
-    new_socket = accept(server_fd, (struct sockaddr*)&address, &addrlen);
-    if (new_socket == INVALID_SOCKET) {
-        std::cerr << "РћС€РёР±РєР° РїСЂРёРЅСЏС‚РёСЏ РїРѕРґРєР»СЋС‡РµРЅРёСЏ: " << WSAGetLastError() << std::endl;
-        closesocket(server_fd);
-        WSACleanup();
-        return 1;
-    }
-
-    std::cout << "РљР»РёРµРЅС‚ РїРѕРґРєР»СЋС‡РµРЅ!" << std::endl;
-
-    // РџРѕР»СѓС‡РµРЅРёРµ Р·Р°РїСЂРѕСЃР° РѕС‚ РєР»РёРµРЅС‚Р°
-    int bytes_read = recv(new_socket, buffer, BUFFER_SIZE, 0);
-    if (bytes_read > 0) {
-        std::cout << "Р—Р°РїСЂРѕСЃ РѕС‚ РєР»РёРµРЅС‚Р°: " << buffer << std::endl;
-
-        // РћС‚РїСЂР°РІРєР° РѕС‚РІРµС‚Р° РєР»РёРµРЅС‚Сѓ
-        send(new_socket, response, strlen(response), 0);
-        std::cout << "РћС‚РІРµС‚ РѕС‚РїСЂР°РІР»РµРЅ: " << response << std::endl;
-    }
-
-    // Р—Р°РєСЂС‹С‚РёРµ СЃРѕРєРµС‚РѕРІ
-    closesocket(new_socket);
-    closesocket(server_fd);
-
-    // РћС‡РёСЃС‚РєР° WinSock
-    WSACleanup();
-
-    return 0;
-}*/
+} 
