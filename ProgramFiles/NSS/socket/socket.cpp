@@ -1,4 +1,4 @@
-/*#include <iostream>
+#include <iostream>
 #include <winsock2.h> // Основной заголовок для WinSock
 #include <ws2tcpip.h> // Для дополнительных функций сокетов (например, getaddrinfo)
 
@@ -6,7 +6,7 @@
 
 #define PORT 8080 // Указываем порт
 
-int main() {
+/*int main() {
     WSADATA wsaData;
 
     // Инициализация WinSock
@@ -17,7 +17,7 @@ int main() {
 
     int server_fd;
     SOCKET new_socket;
-    struct sockaddr_in address;
+    struct sockaddr_in address {0};
     int opt = 1;
     int addrlen = sizeof(address);
 
@@ -79,5 +79,4 @@ int main() {
     WSACleanup();
 
     return 0;
-}
-*/
+}*/
