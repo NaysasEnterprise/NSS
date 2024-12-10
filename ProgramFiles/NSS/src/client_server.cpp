@@ -4,8 +4,8 @@
 #pragma comment(lib, "Ws2_32.lib") // Подключение библиотеки WinSock
 #define PORT 8080 // Указываем порт для подключения
 
-int main() {
-    WSADATA wsaData;
+//int main() {
+   /* WSADATA wsaData;
 
     // Инициализация WinSock
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
@@ -52,5 +52,5 @@ int main() {
 
     // Очистка WinSock
     WSACleanup();
-    return 0;
-}
+    return 0; */
+//}
