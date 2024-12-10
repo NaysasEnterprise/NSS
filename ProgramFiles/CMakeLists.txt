@@ -11,7 +11,7 @@ add_executable (NSS
     "NSS/src/product.cpp"
     "NSS/src/order_pickip_point.cpp"
     "NSS/src/order.cpp"
-    "NSS/src/clients.cpp")
+    "NSS/src/clients.cpp" "NSS/server/SQL_header.cpp")
 
     add_executable (NSS_Server 
     "NSS/src/NSS_server.cpp"
@@ -21,16 +21,15 @@ add_executable (NSS
     "NSS/src/order_pickip_point.cpp"
     "NSS/src/order.cpp"
     "NSS/src/clients.cpp"
-   "NSS/server/sqlite3.h" "NSS/server/sqlite3.c" "NSS/src/client_server.cpp")
+   "NSS/server/sqlite3.h" "NSS/server/sqlite3.c"  "NSS/server/SQL_header.cpp")
 
 # Client executable (предположим, что main() определена в clients.cpp)
 add_executable (Client 
-    "NSS/src/client_server.cpp")
+     "NSS/server/SQL_header.cpp")
 
 add_executable (Server 
     "NSS/server/release.cpp"
-   "NSS/server/sqlite3.h" "NSS/server/sqlite3.c" "NSS/src/client_server.cpp")
-
+   "NSS/server/sqlite3.h" "NSS/server/sqlite3.c"  "NSS/server/SQL_header.cpp")
 
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
