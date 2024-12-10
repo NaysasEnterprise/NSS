@@ -1,21 +1,38 @@
 #include <iostream>
-#include <sqlite3.h>
+#include "sqlite3.h"
 #include "SQL_header.h"
 
 int main() {
     sqlite3* db;
-    const char* dbPath = "your_database.db";  // Укажите здесь путь к вашей базе данных.
+    const char* dbPath = "sql_db.db";
+    const char* sqlScriptPath = "sql_script.sql"; // Укажите путь к вашему SQL-скрипту
 
     // Открытие базы данных
-    int rc = sqlite3_open(dbPath, &db);
-    if (rc) {
+    if (sqlite3_open(dbPath, &db) != SQLITE_OK) {
         std::cerr << "Cannot open database: " << sqlite3_errmsg(db) << std::endl;
         return EXIT_FAILURE;
     }
 
-    // Создание таблицы, если она не существует
-    SQL_Database::createTable(db);
+    // Выполнение SQL-скрипта
+    SQL_Database::executeSQLScript(db, sqlScriptPath);
 
+    // Проверка наличия таблицы
+    const char* checkTableSQL = "SELECT name FROM sqlite_master WHERE type='table' AND name='Users';";
+    sqlite3_stmt* stmt;
+    if (sqlite3_prepare_v2(db, checkTableSQL, -1, &stmt, nullptr) == SQLITE_OK) {
+        if (sqlite3_step(stmt) == SQLITE_ROW) {
+            std::cout << "Table 'Users' exists." << std::endl;
+        }
+        else {
+            std::cerr << "Table 'Users' does not exist!" << std::endl;
+        }
+        sqlite3_finalize(stmt);
+    }
+    else {
+        std::cerr << "Failed to check table: " << sqlite3_errmsg(db) << std::endl;
+    }
+
+    // Основное меню
     int choice;
     do {
         std::cout << "Choose an option:\n";
@@ -28,7 +45,7 @@ int main() {
         std::cin >> choice;
 
         switch (choice) {
-        case 1: { // Register
+        case 1: {
             std::string name, password;
             std::cout << "Enter name: ";
             std::cin >> name;
@@ -37,7 +54,7 @@ int main() {
             SQL_Database::addUser(db, name, password);
             break;
         }
-        case 2: { // Login
+        case 2: {
             std::string name, password;
             std::cout << "Enter name: ";
             std::cin >> name;
@@ -46,18 +63,17 @@ int main() {
             SQL_Database::loginUser(db, name, password);
             break;
         }
-        case 3: { // Delete User
+        case 3: {
             std::string name;
             std::cout << "Enter name of user to delete: ";
             std::cin >> name;
             SQL_Database::deleteUser(db, name);
             break;
         }
-        case 4: { // Display Users
+        case 4:
             SQL_Database::displayUsers(db);
             break;
-        }
-        case 0: // Exit
+        case 0:
             std::cout << "Exiting...\n";
             break;
         default:

@@ -1,9 +1,11 @@
+-- Создание таблицы Users
 CREATE TABLE IF NOT EXISTS Users (
     UserID INTEGER PRIMARY KEY AUTOINCREMENT,
     Name TEXT NOT NULL UNIQUE,
     Password TEXT NOT NULL
 );
 
+-- Создание таблицы Orders
 CREATE TABLE IF NOT EXISTS Orders (
     OrderID INTEGER PRIMARY KEY AUTOINCREMENT,
     UserID INTEGER NOT NULL,
