@@ -1,8 +1,7 @@
 #pragma once
-#include <iostream>
+#include <string>
 #include "sqlite3.h"
-#include <fstream>
-#include <sstream>
+#include <winsock2.h>
 
 namespace SQL_Database {
     void createTable(sqlite3* db) {
@@ -12,49 +11,43 @@ namespace SQL_Database {
             "Name TEXT NOT NULL UNIQUE,"
             "Password TEXT NOT NULL);";
 
+<<<<<<< HEAD
         char* errorMessage = NULL;  // Заменяем nullptr на NULL
         if (sqlite3_exec(db, sqlCreateTable, nullptr, nullptr, &errorMessage) != SQLITE_OK) {
             std::cerr << "SQL error: " << errorMessage << std::endl;
             sqlite3_free(errorMessage);
         }
     }
+=======
+    // Добавление нового пользователя в базу данных
+    void addUser(sqlite3* db, const std::string& name, const std::string& password);
+>>>>>>> 672a63b6dbef354c6c5b0da9130ae765fca43d6c
 
-    void addUser(sqlite3* db, const std::string& name, const std::string& password) {
-        const char* sqlInsert = "INSERT INTO Users (Name, Password) VALUES (?, ?);";
-        sqlite3_stmt* stmt;
+    // Вход пользователя с проверкой имени и пароля
+    bool loginUser(sqlite3* db, const std::string& name, const std::string& password);
 
-        // Подготовка SQL запроса
-        if (sqlite3_prepare_v2(db, sqlInsert, -1, &stmt, nullptr) != SQLITE_OK) {
-            std::cerr << "Failed to prepare statement: " << sqlite3_errmsg(db) << std::endl;
-            return;
-        }
+    // Удаление пользователя по имени
+    void deleteUser(sqlite3* db, const std::string& name);
 
-        // Привязка параметров
-        sqlite3_bind_text(stmt, 1, name.c_str(), -1, SQLITE_STATIC);
-        sqlite3_bind_text(stmt, 2, password.c_str(), -1, SQLITE_STATIC);
+    // Отображение всех пользователей
+    void displayUsers(sqlite3* db);
 
-        // Выполнение запроса
-        if (sqlite3_step(stmt) != SQLITE_DONE) {
-            std::cerr << "Execution failed: " << sqlite3_errmsg(db) << std::endl;
-        }
-        else {
-            std::cout << "User added successfully!" << std::endl;
-        }
+    // Выполнение SQL скрипта
+    void executeSQLScript(sqlite3* db, const std::string& scriptPath);
 
-        // Освобождение ресурсов
-        sqlite3_finalize(stmt);
-    }
+    // Обработка HTTP запроса (для различных операций)
+    void handleHttpRequest(sqlite3* db, int clientSocket, const std::string& httpRequest);
 
-    bool loginUser(sqlite3* db, const std::string& name, const std::string& password) {
-        const char* sqlSelect = "SELECT Password FROM Users WHERE Name = ?;";
-        sqlite3_stmt* stmt;
+    // Вспомогательные функции для обработки пользователей
+    void handleAddUser(sqlite3* db, int clientSocket, const std::string& body);
+    void handleLoginUser(sqlite3* db, int clientSocket, const std::string& body);
+    void handleDeleteUser(sqlite3* db, int clientSocket, const std::string& body);
+    void handleDisplayUsers(sqlite3* db, int clientSocket);
 
-        // Подготовка SQL запроса
-        if (sqlite3_prepare_v2(db, sqlSelect, -1, &stmt, nullptr) != SQLITE_OK) {
-            std::cerr << "Failed to prepare statement: " << sqlite3_errmsg(db) << std::endl;
-            return false;
-        }
+    // Вспомогательная функция для отправки HTTP ответа
+    void sendHttpResponse(int clientSocket, const std::string& status, const std::string& body);
 
+<<<<<<< HEAD
         // Привязка параметра
         sqlite3_bind_text(stmt, 1, name.c_str(), -1, SQLITE_STATIC);
 
@@ -162,3 +155,8 @@ namespace SQL_Database {
     sqlite3_close(db);
     return 0;
 }
+=======
+    // Вспомогательная функция для извлечения данных из тела запроса
+    std::string extractData(const std::string& body, const std::string& key);
+}
+>>>>>>> 672a63b6dbef354c6c5b0da9130ae765fca43d6c
