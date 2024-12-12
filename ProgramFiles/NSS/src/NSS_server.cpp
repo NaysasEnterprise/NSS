@@ -18,7 +18,14 @@ int main() {
     SOCKET serverSocket;
     sqlite3* db;
     const char* dbPath = "sql_db.db";
-
+    const char* sqlScriptPath = "sql_script.sql";
+    // Открытие базы данных
+    if (sqlite3_open(dbPath, &db) != SQLITE_OK) {
+        std::cerr << "Cannot open database: " << sqlite3_errmsg(db) << std::endl;
+        return EXIT_FAILURE;
+    }
+    // Выполнение SQL-скрипта
+    SQL_Database::executeSQLScript(db, sqlScriptPath);
     // Инициализация WinSock
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
         std::cerr << "Ошибка инициализации WinSock" << std::endl;
