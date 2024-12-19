@@ -1,26 +1,23 @@
 -- Создание таблицы Users
 CREATE TABLE IF NOT EXISTS Users (
-    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserID INTEGER PRIMARY KEY AUTOINCREMENT,
     Name TEXT NOT NULL UNIQUE,
     Password TEXT NOT NULL
 );
 
 -- Создание таблицы Orders
 CREATE TABLE IF NOT EXISTS Orders (
-    ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    Customer_ID INTEGER,
-    Product_Name TEXT NOT NULL,
-    Order_Date TEXT NOT NULL,
-    Delivery_Date TEXT,
-    Status TEXT,
-    FOREIGN KEY (Customer_ID) REFERENCES Users(ID)
+    OrderID INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserID INTEGER NOT NULL,
+    ProductName TEXT NOT NULL,
+    OrderDate TEXT NOT NULL,
+    DeliveryDate TEXT,
+    Status TEXT NOT NULL,
+    PickupPointID INTEGER NOT NULL,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) // Задача 1 реализовать функцию просмотра заказов конкретного пользователя
 );
 
--- Создание таблицы Customer_Orders
-CREATE TABLE IF NOT EXISTS Customer_Orders (
-    ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    Customer_ID INTEGER,
-    Order_ID INTEGER,
-    FOREIGN KEY (Customer_ID) REFERENCES Users(ID),
-    FOREIGN KEY (Order_ID) REFERENCES Orders(ID)
+CREATE TABLE IF NOT EXISTS PickupPoints (
+    PickupPointID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Address TEXT NOT NULL                            
 );
