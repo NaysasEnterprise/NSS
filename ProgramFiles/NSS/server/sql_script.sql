@@ -1,11 +1,9 @@
--- Создание таблицы Users
 CREATE TABLE IF NOT EXISTS Users (
     UserID INTEGER PRIMARY KEY AUTOINCREMENT,
     Name TEXT NOT NULL UNIQUE,
     Password TEXT NOT NULL
 );
 
--- Создание таблицы Orders
 CREATE TABLE IF NOT EXISTS Orders (
     OrderID INTEGER PRIMARY KEY AUTOINCREMENT,
     UserID INTEGER NOT NULL,
@@ -14,10 +12,13 @@ CREATE TABLE IF NOT EXISTS Orders (
     DeliveryDate TEXT,
     Status TEXT NOT NULL,
     PickupPointID INTEGER NOT NULL,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID) // Задача 1 реализовать функцию просмотра заказов конкретного пользователя
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
 CREATE TABLE IF NOT EXISTS PickupPoints (
     PickupPointID INTEGER PRIMARY KEY AUTOINCREMENT,
-    Address TEXT NOT NULL                            
+    Name TEXT NOT NULL,
+    Address TEXT NOT NULL,
+    CoordX REAL NOT NULL,
+    CoordY REAL NOT NULL
 );
