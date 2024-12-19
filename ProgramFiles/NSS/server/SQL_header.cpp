@@ -6,7 +6,6 @@
 
 namespace SQL_Database {
 
-
     void addUser(sqlite3* db, const std::string& name, const std::string& password) {
         const char* sqlInsert = "INSERT INTO Users (Name, Password) VALUES (?, ?);";
         sqlite3_stmt* stmt;
@@ -264,4 +263,5 @@ namespace SQL_Database {
         return body.substr(pos, end - pos);
     }
 
+   
 }
