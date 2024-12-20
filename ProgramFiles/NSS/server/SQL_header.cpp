@@ -27,7 +27,6 @@ namespace SQL_Database {
 
         sqlite3_finalize(stmt);
     }
-
     bool loginUser(sqlite3* db, const std::string& name, const std::string& password) {
         const char* sqlSelect = "SELECT Password FROM Users WHERE Name = ?;";
         sqlite3_stmt* stmt;
@@ -57,7 +56,6 @@ namespace SQL_Database {
         sqlite3_finalize(stmt);
         return false;
     }
-
     void deleteUser(sqlite3* db, const std::string& name) {
         const char* sqlDelete = "DELETE FROM Users WHERE Name = ?;";
         sqlite3_stmt* stmt;
@@ -78,7 +76,6 @@ namespace SQL_Database {
 
         sqlite3_finalize(stmt);
     }
-
     void displayUsers(sqlite3* db) {
         const char* sqlSelect = "SELECT * FROM Users;";
         sqlite3_stmt* stmt;
@@ -103,45 +100,54 @@ namespace SQL_Database {
         sqlite3_finalize(stmt);
     }
 
-    // Функция для разбиения SQL-скрипта на отдельные команды
-    std::vector<std::string> splitSQLCommands(const std::string& script) {
-        std::vector<std::string> commands;
-        std::string command;
-        std::istringstream stream(script);
+    void handleGetUserOrders(sqlite3* db, int clientSocket, const std::string& body) {
+        // Извлекаем ID пользователя из тела запроса
+        std::string userIdStr = extractData(body, "userId");
 
-        while (std::getline(stream, command, ';')) {
-            command = command + ";"; // Восстанавливаем разделитель
-            if (!command.empty() && command != ";") {
-                commands.push_back(command);
-            }
-        }
-        return commands;
-    }
-
-    // Исполнение SQL-скрипта
-    void executeSQLScript(sqlite3* db, const std::string& scriptPath) {
-        std::ifstream scriptFile(scriptPath);
-        if (!scriptFile.is_open()) {
-            std::cerr << "Cannot open SQL script file: " << scriptPath << std::endl;
+        if (userIdStr.empty()) {
+            sendHttpResponse(clientSocket, "400 Bad Request", "Missing userId parameter");
             return;
         }
 
-        std::stringstream buffer;
-        buffer << scriptFile.rdbuf();
-        std::string sqlScript = buffer.str();
+        try {
+            int userId = std::stoi(userIdStr);
 
-        // Разделение SQL-команд
-        auto commands = splitSQLCommands(sqlScript);
+            // Создаем SQL-запрос для получения заказов пользователя
+            std::string sql = "SELECT OrderID, ProductName, OrderDate, DeliveryDate, Status, PickupPointID "
+                "FROM Orders WHERE UserID = ?";
+            sqlite3_stmt* stmt;
+            if (sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+                sendHttpResponse(clientSocket, "500 Internal Server Error", "Failed to prepare SQL statement");
+                return;
+            }
 
-        char* errorMessage = nullptr;
-        for (const auto& command : commands) {
-            if (sqlite3_exec(db, command.c_str(), nullptr, nullptr, &errorMessage) != SQLITE_OK) {
-                std::cerr << "SQL error: " << errorMessage << " for command: " << command << std::endl;
-                sqlite3_free(errorMessage);
+            // Привязываем значение userId к запросу
+            sqlite3_bind_int(stmt, 1, userId);
+
+            // Выполняем запрос и формируем JSON-ответ
+            std::string response = "[";
+            bool first = true;
+
+            while (sqlite3_step(stmt) == SQLITE_ROW) {
+                if (!first) response += ",";
+                response += "{";
+                response += "\"OrderID\": " + std::to_string(sqlite3_column_int(stmt, 0)) + ",";
+                response += "\"ProductName\": \"" + std::string(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1))) + "\",";
+                response += "\"OrderDate\": \"" + std::string(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2))) + "\",";
+                response += "\"DeliveryDate\": \"" + std::string(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3))) + "\",";
+                response += "\"Status\": \"" + std::string(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 4))) + "\",";
+                response += "\"PickupPointID\": " + std::to_string(sqlite3_column_int(stmt, 5));
+                response += "}";
+                first = false;
             }
-            else {
-                std::cout << "Executed: " << command << std::endl;
-            }
+            response += "]";
+
+            sqlite3_finalize(stmt);
+
+            sendHttpResponse(clientSocket, "200 OK", response);
+        }
+        catch (const std::exception& e) {
+            sendHttpResponse(clientSocket, "400 Bad Request", "Invalid userId format");
         }
     }
 
@@ -170,6 +176,9 @@ namespace SQL_Database {
         else if (method == "GET" && uri == "/displayUsers") {
             handleDisplayUsers(db, clientSocket);
         }
+        else if (method == "GET" && uri == "/getUserOrders") {
+            handleGetUserOrders(db, clientSocket, body);
+        }
         //для пунктов выдачи
         else if (method == "POST" && uri == "/addPickupPoint") {
             handleAddPickupPoint(db, clientSocket, body);
@@ -187,7 +196,6 @@ namespace SQL_Database {
             sendHttpResponse(clientSocket, "404 Not Found", "Endpoint not found");
         }
     }
-
     void handleAddUser(sqlite3* db, int clientSocket, const std::string& body) {
         std::string name = extractData(body, "name");
         std::string password = extractData(body, "password");
@@ -200,7 +208,6 @@ namespace SQL_Database {
         addUser(db, name, password);
         sendHttpResponse(clientSocket, "200 OK", "User added successfully");
     }
-
     void handleLoginUser(sqlite3* db, int clientSocket, const std::string& body) {
         std::string name = extractData(body, "name");
         std::string password = extractData(body, "password");
@@ -217,7 +224,6 @@ namespace SQL_Database {
             sendHttpResponse(clientSocket, "401 Unauthorized", "Invalid credentials");
         }
     }
-
     void handleDeleteUser(sqlite3* db, int clientSocket, const std::string& body) {
         std::string name = extractData(body, "name");
 
@@ -229,7 +235,6 @@ namespace SQL_Database {
         deleteUser(db, name);
         sendHttpResponse(clientSocket, "200 OK", "User deleted successfully");
     }
-
     void handleDisplayUsers(sqlite3* db, int clientSocket) {
         std::stringstream response;
         response << "ID\tName\tPassword\n";
@@ -258,6 +263,47 @@ namespace SQL_Database {
         sqlite3_finalize(stmt);
     }
 
+    // Функция для разбиения SQL-скрипта на отдельные команды
+    std::vector<std::string> splitSQLCommands(const std::string& script) {
+        std::vector<std::string> commands;
+        std::string command;
+        std::istringstream stream(script);
+
+        while (std::getline(stream, command, ';')) {
+            command = command + ";"; // Восстанавливаем разделитель
+            if (!command.empty() && command != ";") {
+                commands.push_back(command);
+            }
+        }
+        return commands;
+    }
+    // Исполнение SQL-скрипта
+    void executeSQLScript(sqlite3* db, const std::string& scriptPath) {
+        std::ifstream scriptFile(scriptPath);
+        if (!scriptFile.is_open()) {
+            std::cerr << "Cannot open SQL script file: " << scriptPath << std::endl;
+            return;
+        }
+
+        std::stringstream buffer;
+        buffer << scriptFile.rdbuf();
+        std::string sqlScript = buffer.str();
+
+        // Разделение SQL-команд
+        auto commands = splitSQLCommands(sqlScript);
+
+        char* errorMessage = nullptr;
+        for (const auto& command : commands) {
+            if (sqlite3_exec(db, command.c_str(), nullptr, nullptr, &errorMessage) != SQLITE_OK) {
+                std::cerr << "SQL error: " << errorMessage << " for command: " << command << std::endl;
+                sqlite3_free(errorMessage);
+            }
+            else {
+                std::cout << "Executed: " << command << std::endl;
+            }
+        }
+    }
+
     void sendHttpResponse(int clientSocket, const std::string& status, const std::string& body) {
         std::string response = "HTTP/1.1 " + status + "\r\n";
         response += "Content-Type: text/plain\r\n";
@@ -267,7 +313,6 @@ namespace SQL_Database {
 
         send(clientSocket, response.c_str(), response.size(), 0);
     }
-
     std::string extractData(const std::string& body, const std::string& key) {
         size_t pos = body.find(key + "=");
         if (pos == std::string::npos) return "";
@@ -275,7 +320,6 @@ namespace SQL_Database {
         size_t end = body.find("&", pos);
         return body.substr(pos, end - pos);
     }
-
     bool isNumeric(const std::string& str) {
         try {
             std::stod(str);
@@ -286,7 +330,7 @@ namespace SQL_Database {
         }
     }
 
-    // Добавление пункта ПВЗ
+    //для пунктов выдачи
     void addPickupPoint(sqlite3* db, const std::string& name, const std::string& address, double coordX, double coordY) {
         const char* sqlInsert = "INSERT INTO PickupPoints (Name, Address, CoordX, CoordY) VALUES (?, ?, ?, ?);";
         sqlite3_stmt* stmt;
@@ -310,8 +354,6 @@ namespace SQL_Database {
 
         sqlite3_finalize(stmt);
     }
-
-    // Редактирование пункта ПВЗ
     void editPickupPoint(sqlite3* db, int pickupPointID, const std::string& name, const std::string& address, double coordX, double coordY) {
         const char* sqlUpdate = "UPDATE PickupPoints SET Name = ?, Address = ?, CoordX = ?, CoordY = ? WHERE PickupPointID = ?;";
         sqlite3_stmt* stmt;
@@ -468,7 +510,6 @@ namespace SQL_Database {
             sendHttpResponse(clientSocket, "400 Bad Request", "Invalid parameter format");
         }
     }
-
     void handleDeletePickupPoint(sqlite3* db, int clientSocket, const std::string& body) {
         int id = std::stoi(extractData(body, "id"));
 

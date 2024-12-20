@@ -11,6 +11,8 @@ namespace SQL_Database {
     void deleteUser(sqlite3* db, const std::string& name);
     void displayUsers(sqlite3* db);
 
+    void handleGetUserOrders(sqlite3* db, int clientSocket, const std::string& body);
+
     //вспомогательные функции для обработки пользователей
     void handleAddUser(sqlite3* db, int clientSocket, const std::string& body);
     void handleLoginUser(sqlite3* db, int clientSocket, const std::string& body);
@@ -41,3 +43,4 @@ namespace SQL_Database {
     void handleDisplayPickupPoints(sqlite3* db, int clientSocket);
 
 }
+
