@@ -11,5 +11,8 @@ endif()
 
 project ("NSS")
 
-# Включите подпроекты.
-add_subdirectory ("ProgramFiles")
+find_package(GTest REQUIRED)
+
+# Добавляем поддиректории
+add_subdirectory("googletest")
+add_subdirectory("ProgramFiles")
