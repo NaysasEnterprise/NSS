@@ -9,7 +9,7 @@
 
 using namespace FunctionsOPPControl;
 
-int main() {
+int main() {//
     system("chcp 1251");
     setlocale(LC_ALL, "Russian");  // Установка локали для поддержки русского языка
 
