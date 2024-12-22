@@ -26,7 +26,7 @@ int main() {
     }
     // Выполнение SQL-скрипта
     SQL_Database::executeSQLScript(db, sqlScriptPath);
-
+    SQL_Database::initializeProductsTable(db);
     // Инициализация WinSock
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
         std::cerr << "Ошибка инициализации WinSock" << std::endl;
