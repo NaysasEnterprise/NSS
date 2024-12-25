@@ -13,3 +13,4 @@ project ("NSS")
 
 # Включите подпроекты.
 add_subdirectory ("ProgramFiles")
+add_subdirectory ("tests")
