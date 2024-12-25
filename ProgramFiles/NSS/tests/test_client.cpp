@@ -1,49 +1,39 @@
 ﻿#define CATCH_CONFIG_MAIN
-#include <catch2/catch_test_macros.hpp>
+#include <../include/catch.hpp>
 #include "../include/clients.h"
 #include "../include/order.h"
 
 // Тестирование геттеров и сеттеров
-TEST(ClientTest, GetterSetterTest) {
-    Client client;
-
-    client.setClientId(1);
-    client.setClientFirstName("John");
-    client.setClientLastName("Doe");
+TEST_CASE("Getter and Setter Test for Client", "[client]") {
+    Client client(1, "John", "Doe");
 
     // Проверяем, что значения заданы правильно
-    EXPECT_EQ(client.getClientId(), 1);
-    EXPECT_EQ(client.getClientFirstName(), "John");
-    EXPECT_EQ(client.getClientLastName(), "Doe");
+    REQUIRE(client.getClientId() == 1);
+    REQUIRE(client.getClientFirstName() == "John");
+    REQUIRE(client.getClientLastName() == "Doe");
 }
 
 // Тестирование добавления заказа
-TEST(ClientTest, PlaceOrderTest) {
-    Client client;
-    client.setClientId(1);
-    client.setClientFirstName("John");
-    client.setClientLastName("Doe");
+TEST_CASE("Place Order Test", "[client]") {
+    Client client(1, "John", "Doe");
 
     client.placeOrder("Laptop");
     auto orders = client.getClientOrders();
 
     // Проверяем, что заказ был добавлен
-    ASSERT_EQ(orders.size(), 1);
-    EXPECT_EQ(orders[0].getProductName(), "Laptop");
+    REQUIRE(orders.size() == 1);
+    REQUIRE(orders[0].getProductName() == "Laptop");
 }
 
 // Тестирование поиска заказа по ID
-TEST(ClientTest, SearchOrderByIdTest) {
-    Client client;
-    client.setClientId(1);
-    client.setClientFirstName("John");
-    client.setClientLastName("Doe");
+TEST_CASE("Search Order By ID Test", "[client]") {
+    Client client(1, "John", "Doe");
 
     client.placeOrder("Laptop");
     client.placeOrder("Smartphone");
 
     std::vector<Order> orders = client.getClientOrders();
-    EXPECT_EQ(orders.size(), 2);
+    REQUIRE(orders.size() == 2);
 
     // Предположим, что Order имеет метод для получения ID
     int orderId = orders[0].getOrderId();
@@ -51,37 +41,31 @@ TEST(ClientTest, SearchOrderByIdTest) {
 }
 
 // Тестирование удаления заказа по ID
-TEST(ClientTest, RemoveOrderTest) {
-    Client client;
-    client.setClientId(1);
-    client.setClientFirstName("John");
-    client.setClientLastName("Doe");
+TEST_CASE("Remove Order Test", "[client]") {
+    Client client(1, "John", "Doe");
 
     client.placeOrder("Laptop");
     auto orders = client.getClientOrders();
-    ASSERT_EQ(orders.size(), 1);
+    REQUIRE(orders.size() == 1);
 
     client.removeOrder(orders[0].getOrderId());
     orders = client.getClientOrders();
 
     // Проверяем, что заказ был удалён
-    EXPECT_EQ(orders.size(), 0);
+    REQUIRE(orders.size() == 0);
 }
 
 // Тестирование возврата заказа
-TEST(ClientTest, ReturnOrderTest) {
-    Client client;
-    client.setClientId(1);
-    client.setClientFirstName("John");
-    client.setClientLastName("Doe");
+TEST_CASE("Return Order Test", "[client]") {
+    Client client(1, "John", "Doe");
 
     client.placeOrder("Laptop");
     auto orders = client.getClientOrders();
-    ASSERT_EQ(orders.size(), 1);
+    REQUIRE(orders.size() == 1);
 
     Order returnedOrder = client.returnOrder("Changed my mind");
 
     // Проверяем, что заказ был возвращён
-    EXPECT_EQ(returnedOrder.getProductName(), "Laptop");
-    EXPECT_EQ(client.getClientOrders().size(), 0);
+    REQUIRE(returnedOrder.getProductName() == "Laptop");
+    REQUIRE(client.getClientOrders().size() == 0);
 }
