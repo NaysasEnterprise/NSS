@@ -1,5 +1,5 @@
-﻿#include "../include/product.h"
-#include <random>
+﻿#include <random>
+#include "../include/product.h"
 
 using namespace std;
 

@@ -1,5 +1,5 @@
-﻿#include "../include/order.h"
-#include <sstream>
+﻿#include <sstream>
+#include "../include/order.h"
 
 // Конструктор
 Order::Order(int orderId, const Product& prod, const std::string& client, const std::string& date,

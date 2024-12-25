@@ -1,8 +1,8 @@
-﻿#include "../include/clients.h"
+﻿#include <iostream>
+#include <algorithm>
+#include "../include/clients.h"
 #include "../include/order_pickup_point.h"
 #include "../include/order.h"
-#include <iostream>
-#include <algorithm>
 
 using namespace FunctionsOPPControl;
 using namespace std;

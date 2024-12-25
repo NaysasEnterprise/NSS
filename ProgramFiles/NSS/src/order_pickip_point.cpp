@@ -1,10 +1,10 @@
-﻿#include "../include/order_pickup_point.h"
-#include <string>
+﻿#include <string>
 #include <vector>
-#include "../include/order.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "../include/order.h"
+#include "../include/order_pickup_point.h"
 
 #define CLIENTS_FILE "clients.txt"                    
 
