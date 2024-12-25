@@ -22,3 +22,12 @@ Abi: 636d6720af1047285fe89595f6b469752450c8722c00c7768a6f129f8921192e
 Description: Formatting library for C++. It can be used as a safe alternative to printf or as a fast alternative to IOStreams.
 Status: install ok installed
 
+Package: catch2
+Version: 3.7.1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: e1c642c5ef3e06ca3aff4366e8fa3955b1855159529b66ff7812606f2d76a232
+Description: A modern, C++-native, test framework for unit-tests, TDD and BDD.
+Status: install ok installed
+
