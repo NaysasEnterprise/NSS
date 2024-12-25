@@ -29,3 +29,4 @@ add_executable (NSS_Server
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET NSS_Server PROPERTY CXX_STANDARD 20)
 endif()
+
