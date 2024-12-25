@@ -5,6 +5,20 @@
 # Добавьте источник в исполняемый файл этого проекта.
 # NSS executable
 
+set(Catch2_DIR "../vcpkg_installed/x64-windows/share/Catch2")
+find_package(Catch2 CONFIG REQUIRED)
+
+
+# тест для order.cpp
+add_executable(test_order "NSS/tests/test_order.cpp"
+    "NSS/namespace/functionsOppControl.cpp"
+    "NSS/src/product.cpp"
+    "NSS/src/order_pickip_point.cpp"
+    "NSS/src/order.cpp"
+    "NSS/src/clients.cpp")
+
+target_link_libraries(test_order PRIVATE Catch2::Catch2 Catch2::Catch2WithMain)
+
 add_executable (NSS
     "NSS/src/NSS.cpp"
     "NSS/namespace/functionsOppControl.cpp"
