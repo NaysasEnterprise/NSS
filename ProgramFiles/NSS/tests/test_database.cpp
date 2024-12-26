@@ -33,3 +33,20 @@ TEST_CASE("Initialization table", "[database]") {
         sqlite3_finalize(stmt);
     }
 }
+TEST_CASE("Interaction with server", "[database]") {
+    SECTION("Register user")
+    {
+        SQL_Database::addUser(db, "Ashman Neymarov", "qwerty");
+        REQUIRE(SQL_Database::loginUser(db, "Ashman Neymarov", "qwerty"));
+    }
+    SQL_Database::addPickupPoint(db, "Main office", "Gagarina avenue, 1", 0, 0);
+    SQL_Database::addOrder(db, "Ashman Neymarov", 1, { 0,1 });
+    SQL_Database::displayPickupPoints(db);
+    SQL_Database::displayUsers(db);
+    SECTION("Delete user")
+    {
+        SQL_Database::deleteUser(db, "Ashman Neymarov");
+        REQUIRE(!SQL_Database::loginUser(db, "Ashman Neymarov", "qwerty"));
+    }
+    SQL_Database::deletePickupPoint(db, 1);
+}
