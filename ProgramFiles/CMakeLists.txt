@@ -9,15 +9,13 @@ set(Catch2_DIR "../vcpkg_installed/x64-windows/share/Catch2")
 find_package(Catch2 CONFIG REQUIRED)
 
 
-# тест для order.cpp
-add_executable(test_order "NSS/tests/test_order.cpp"
-    "NSS/namespace/functionsOppControl.cpp"
-    "NSS/src/product.cpp"
-    "NSS/src/order_pickip_point.cpp"
-    "NSS/src/order.cpp"
-    "NSS/src/clients.cpp")
+add_executable(test_database "NSS/tests/test_database.cpp"
+    "NSS/server/SQL_header.cpp"
+    "NSS/socket/socket.cpp"
+    "NSS/server/sqlite3.c")
 
-target_link_libraries(test_order PRIVATE Catch2::Catch2 Catch2::Catch2WithMain)
+#target_link_libraries(test_order PRIVATE Catch2::Catch2 Catch2::Catch2WithMain)
+target_link_libraries(test_database PRIVATE Catch2::Catch2 Catch2::Catch2WithMain)
 
 add_executable (NSS
     "NSS/src/NSS.cpp"
